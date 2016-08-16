@@ -1,0 +1,57 @@
+<label ng-show="!createMode && editMode">Enumeris Site ID: {{siteToEdit.id}}</label>
+
+<div class="form-group"
+     ng-class="{ 'has-error':  siteForm.name.$invalid }">
+    <label>Site Name</label>
+    <input type="text" name="name" class="form-control"
+           ng-model="siteToEdit.newSiteName"
+           ng-minlength="5"
+           ng-maxlength="40"
+           required>
+
+    <div class="help-block" ng-messages="siteForm.name.$error" ng-if="siteForm.name.$touched">
+        <div ng-messages-include="messages.html"></div>
+    </div>
+</div>
+
+<div class="form-group"
+     ng-class="{ 'has-error': siteForm.shortName.$touched && siteForm.shortName.$invalid }">
+    <label>Short Name</label>
+    <input type="text" name="shortName" class="form-control"
+           ng-model="siteToEdit.shortName"
+           ng-maxlength="20"
+    >
+
+    <div class="help-block" ng-messages="siteForm.shortName.$error" ng-if="siteForm.shortName.$touched">
+        <div ng-messages-include="messages.html"></div>
+    </div>
+</div>
+
+<div class="form-group"
+     ng-class="{ 'has-error':  siteForm.companyNumber.$invalid }">
+    <label>Company Number</label>
+    <input type="text" name="companyNumber" class="form-control"
+           ng-model="siteToEdit.companyNumber"
+           ng-minlength="3"
+           ng-maxlength="30"
+    >
+
+    <div class="help-block" ng-messages="siteForm.companyNumber.$error" ng-if="siteForm.companyNumber.$touched">
+        <div ng-messages-include="messages.html"></div>
+    </div>
+</div>
+
+<label>Time Zone</label>
+
+<div>
+    <ui-select ng-model="siteToEdit.selectedTimeZone" theme="selectize" ng-required="true"
+               style="width:100%;">
+        <ui-select-match placeholder="Select or search a city in the list...">
+            {{siteToEdit.selectedTimeZone}}
+        </ui-select-match>
+        <ui-select-choices repeat="timeZone in timeZones | filter: $select.search">
+            <span ng-bind-html="timeZone | highlight: $select.search"></span>
+
+        </ui-select-choices>
+    </ui-select>
+</div>

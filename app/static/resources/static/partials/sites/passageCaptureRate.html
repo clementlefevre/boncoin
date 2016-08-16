@@ -1,0 +1,71 @@
+<div class="orderDetails">
+
+    <div class="row">
+        <div class="col-md-8" style="padding:20px;">
+            <div ng-class="{ 'has-error': siteForm.passageName.$touched && siteForm.passageName.$invalid }">
+                <label>Name : </label> <input type="text" name="passageName" class="form-control"
+                                              ng-model="captureRateWrapper.sidewalk.name" ng-minlength="2"
+                                              ng-maxlength="40" placeholder="add a passage"
+                                              required autofocus>
+
+                <div class="help-block" ng-messages="siteForm.passageName.$error"
+                     ng-if="siteForm.passageName.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+            <div>
+                <label>short Name : </label> <input type="text" name="passageShortName" class="form-control"
+                                                    ng-model="captureRateWrapper.sidewalk.shortName" ng-minlength="1"
+                                                    ng-maxlength="40" placeholder="short name">
+            </div>
+            <div>
+                <label>Floor : </label> <input type="text" name="passageFloor" class="form-control"
+                                               ng-model="captureRateWrapper.sidewalk.floor" ng-minlength="1"
+                                               ng-maxlength="40" placeholder="floor">
+            </div>
+
+            <label>Passage type : SIDEWALK</label>
+            <div class="dropdown">
+                <label>Select an Entrance :</label>
+                <button id="passageType-button" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{captureRateWrapper.entrance.name}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                    <li ng-repeat="entrance in available_entrances"><a
+                            ng-click="selectEntrance(entrance)">{{entrance.name}}</a></li>
+                </ul>
+            </div>
+            <div class="checkbox">Excluded :<label>
+
+                <input type="checkbox" name="excluded" ng-model="captureRateWrapper.sidewalk.excluded"
+                       ng-true-value="true"
+                       ng-false-value="false" ng-init="captureRateWrapper.sidewalk.excluded=true">
+            </label>
+                <div class="checkbox">Include Incomings in the capture rate :<label>
+                    <input type="checkbox" name="includeIncoming" ng-model="captureRateWrapper.includeIncoming"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           ng-init="captureRateWrapper.includeIncoming=true">
+                </label>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"
+                                ng-disabled="!siteForm.$valid || captureRateWrapper.entrance.name == undefined"
+                                ng-click="saveNewCaptureRate(captureRateWrapper)">Save Capture Rate
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group pull-right">
+                        <button type="submit" class="btn btn-danger"
+                                ng-click="cancelNewCaptureRate()">Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>

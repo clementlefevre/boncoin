@@ -1,0 +1,127 @@
+<form novalidate class="simple-form">
+
+
+    <div>
+
+
+        <!-- Single button -->
+
+
+        <div class="row">
+            <div class="col-md-2">
+                <div>
+                    <label>Caption</label>
+                    <input type="text" name="caption" class="form-control"
+                           ng-model="search.caption"
+                           required
+                            >
+                </div>
+
+            </div>
+            <div class="col-md-2">
+                <label>From</label>
+
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                           ng-model="search.date_from"
+                           is-open="open_from.opened" datepicker-options="dateOptions" ng-required="true"
+                           close-text="Close" alt-input-formats="altInputFormats"/>
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open_from()"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+
+            <div class="col-md-2">
+                <label>To</label>
+
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                           ng-model="search.date_to"
+                           is-open="open_to.opened" datepicker-options="dateOptions" ng-required="true"
+                           close-text="Close" alt-input-formats="altInputFormats"/>
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open_to()"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+
+            <div class="col-md-2">
+
+                <button type="submit" class="btn btn-primary"
+                        ng-click="search_images(search)">Search
+                </button>
+
+                <div ng-if="rowCollection.length>0">Found : <strong>{{rowCollection.length}} </strong>matching pictures.
+                </div>
+
+            </div>
+        </div>
+
+
+        <hr/>
+
+    </div>
+
+
+</form>
+
+
+<div ng-if="rowCollection.length>0">
+
+    <table st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th st-sort="date">Date
+            </th>
+            <th st-sort="image_url">Pic</th>
+            <th st-sort="article_url">Article</th>
+            <th st-sort="image_caption">Caption
+            </th>
+
+
+        </tr>
+        <tr>
+
+            <th colspan="4">
+                <input st-search placeholder="global search" class="input-sm form-control" type="search"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in rowCollection">
+            <td>{{row.date | date}}</td>
+            <td class="thumbnail">
+                <div class="image">
+                    <img src={{row.image_url}} alt="Some awesome text"/>
+                </div>
+
+
+            </td>
+            <td><a href={{row.article_url}} target="_blank">{{row.article_title}}</a></td>
+            <td>{{row.image_caption}}</td>
+
+
+        </tr>
+
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="70"></div>
+            </td>
+        </tr>
+
+
+        </tfoot>
+    </table>
+</div>
+<p class="alert alert-info" ng-if="images.length == 0">
+    No images found for this Search.
+</p>
+
+
+

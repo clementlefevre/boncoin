@@ -1,0 +1,83 @@
+<accordion close-others="oneAtATime">
+    <accordion-group heading="Threshold Alarm">
+        <div class="form-group"
+             ng-class="{ 'has-error': siteForm.name.$touched && siteForm.name.$invalid }">
+            <label>ThresholdAlarm Email</label>
+            <input type="text" name="thresholdEmail" class="form-control"
+                   ng-model="siteToEdit.thresholdAlarm.email"
+                   ng-minlength="6"
+                   ng-maxlength="50"
+                    >
+
+            <div class="help-block" ng-messages="siteForm.name.$error" ng-if="siteForm.name.$touched">
+                <p ng-message="minlength">Email address is too short.</p>
+
+                <p ng-message="maxlength">Email address is too long.</p>
+
+                <p ng-message="required">Email address is required.</p>
+            </div>
+        </div>
+
+        <div class="form-group"
+             ng-class="{ 'has-error': siteForm.name.$touched && siteForm.name.$invalid }">
+            <label>ThresholdAlarm Phone Nr</label>
+            <input type="text" name="thresholdPhoneNumber" class="form-control"
+                   ng-model="siteToEdit.thresholdAlarm.phoneNumber"
+                   ng-minlength="5"
+                   ng-maxlength="50"
+                    >
+
+            <div class="help-block" ng-messages="siteForm.name.$error" ng-if="siteForm.name.$touched">
+                <p ng-message="minlength">phoneNumber is too short.</p>
+
+                <p ng-message="maxlength">phoneNumber is too long.</p>
+
+                <p ng-message="required">phoneNumber is required.</p>
+            </div>
+        </div>
+
+
+        <!-- Single button -->
+        <div class="btn-group" dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-info" dropdown-toggle
+                    ng-disabled="disabled">
+                language : {{siteToEdit.thresholdAlarm.language}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                <li ng-repeat="language in languages">
+                    <a ng-click=" siteToEdit.thresholdAlarm.language = language">{{language}}</a>
+                </li>
+            </ul>
+        </div>
+        <hr>
+
+        <div class="form-group"
+             ng-class="{ 'has-error': siteForm.name.$touched && siteForm.name.$invalid }">
+            <label>ThresholdAlarm Max Occupancy</label>
+            <input type="number" name="thresholdMaxOccupancy" class="form-control"
+                   ng-model="siteToEdit.thresholdAlarm.maxOccupancy"
+                   min="0"
+                    >
+
+        </div>
+
+        <div class="form-group"
+             ng-class="{ 'has-error': siteForm.name.$touched && siteForm.name.$invalid }">
+            <label>ThresholdAlarm Warn Occupancy</label>
+            <input type="number" name="thresholdWarnOccupancy" class="form-control"
+                   ng-model="siteToEdit.thresholdAlarm.warnOccupancy"
+                   min="0"
+                    >
+
+
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="threshold"
+                       ng-model="siteToEdit.thresholdAlarm.dataGapsAlarmEnabled" ng-true-value="true"
+                       ng-false-value="false">
+                Data Gaps Alarm enabled
+            </label>
+        </div>
+    </accordion-group>
+</accordion>

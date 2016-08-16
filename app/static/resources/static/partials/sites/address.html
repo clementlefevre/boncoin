@@ -1,0 +1,89 @@
+<accordion close-others="oneAtATime">
+    <accordion-group
+            heading="Address"> <!-- Single button -->
+
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <button id="country-button" type="button" class="select" name="country_select"
+                        dropdown-toggle
+                        ng-class="{countryNotSelected : selectedCountry==='select a country', countrySelected:countrySelected}">
+                    {{selectedCountry}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" style="overflow-y: scroll;height: 200px;" role="menu"
+                    aria-labelledby="single-button">
+                    <li ng-repeat="country in countriesISO"><a
+                            ng-click="selectCountry(country)">{{country.name}}</a></li>
+                </ul>
+
+            </div>
+            <hr>
+
+            <div class="form-group"
+                 ng-class="{ 'has-error':  siteForm.street.$invalid }">
+                <label>Street</label> <input type="text" name="street"
+                                             class="form-control" ng-model="siteToEdit.addressWrapper.street"
+                                             ng-minlength="5" required>
+
+                <div class="help-block" ng-messages="siteForm.street.$error"
+                     ng-if="siteForm.street.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{ 'has-error':  siteForm.addresswrapper_number.$invalid }">
+                <label>Number</label> <input type="text" name="addresswrapper_number"
+                                             class="form-control" ng-model="siteToEdit.addressWrapper.number"
+                                             required>
+
+                <div class="help-block"
+                     ng-messages="siteForm.addresswrapper_number.$error"
+                     ng-if="siteForm.addresswrapper_number.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{ 'has-error':  siteForm.addressWrapper_city.$invalid }">
+                <label>City</label> <input type="text" name="addressWrapper_city"
+                                           class="form-control" ng-model="siteToEdit.addressWrapper.city"
+                                           ng-minlength="3" required>
+
+                <div class="help-block"
+                     ng-messages="siteForm.addressWrapper_city.$error"
+                     ng-if="siteForm.addressWrapper_city.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+
+
+            <div class="form-group"
+                 ng-class="{ 'has-error':  siteForm.addressWrapper_zip.$invalid }">
+                <label>Zip Code</label> <input type="text" name="addressWrapper_zip"
+                                               class="form-control" ng-model="siteToEdit.addressWrapper.zip"
+                                               required>
+
+                <div class="help-block"
+                     ng-messages="siteForm.addressWrapper_zip.$error"
+                     ng-if="siteForm.addressWrapper_zip.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+
+            <div class="form-group"
+                 ng-class="{ 'has-error': siteForm.addressWrapper_additionalInformations.$touched && siteForm.addressWrapper_additionalInformations.$invalid }">
+                <label>Additional Infos</label> <input type="text" name="infos"
+                                                       class="form-control"
+                                                       ng-model="siteToEdit.addressWrapper.additionalInformations"
+                                                       ng-maxlength="200">
+
+                <div class="help-block"
+                     ng-messages="siteForm.addressWrapper.additionalInformations.$error"
+                     ng-if="siteForm.addressWrapper.addressWrapper_additionalInformations.$touched">
+                    <div ng-messages-include="messages.html"></div>
+                </div>
+            </div>
+    </accordion-group>
+</accordion>

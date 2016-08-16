@@ -277,3 +277,9 @@ class Post(db.Model):
     post_author = db.Column('post_author', db.String, nullable=True)
     post_zip = db.Column('post_zip', db.Integer, nullable=True)
     post_city = db.Column('post_city', db.Integer, nullable=True)
+
+class SearchAgent(db.Model):
+    __tablename__ = "search_agents"
+    id = db.Column(db.Integer, primary_key=True)
+    agent_keywords = db.Column('agent_keywords', db.String, nullable=False)
+    agent_active = db.Column('agent_active', db.Boolean, nullable=False)

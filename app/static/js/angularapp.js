@@ -1,13 +1,13 @@
 //
-var exampleApp = angular.module('exampleApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'LocalStorageModule', 'smart-table']);
+var bonCoinApp = angular.module('bonCoinApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'LocalStorageModule', 'smart-table']);
 
-exampleApp.config(function ($routeProvider, $httpProvider, localStorageServiceProvider) {
+bonCoinApp.config(function ($routeProvider, $httpProvider, localStorageServiceProvider) {
 
     localStorageServiceProvider.setPrefix('image_matcher');
 
-    $routeProvider.when('/search_images', {
-        templateUrl: '/static/partials/search_images.html',
-        controller: 'search_imagesController'
+    $routeProvider.when('/search_agents', {
+        templateUrl: '/static/partials/search_agents.html',
+        controller: 'searchAgentsController'
     });
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -28,19 +28,3 @@ exampleApp.config(function ($routeProvider, $httpProvider, localStorageServicePr
 });
 
 
-exampleApp.controller('FormController1',
-    function ($scope) {
-        $scope.buttonClicked = function () {
-            $scope.modText = "Hello " + $scope.inputText + " from controller 1";
-        };
-
-    });
-
-exampleApp.controller('FormController2',
-    function ($scope) {
-        $scope.buttonClicked = function () {
-            $scope.modText = "Hello " + $scope.inputText + " from controller 2";
-        };
-
-
-    }); 

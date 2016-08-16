@@ -6,6 +6,7 @@ from flask.ext.sqlalchemy import get_debug_queries
 from . import main
 from app.main.forms import DateRangeForm
 from app.main.service.images_service import find_images
+from  app.main.service.search_agents_service import get_all_agents
 from app.models import User
 
 
@@ -59,13 +60,14 @@ def get_images():
     return jsonify(result=results), 200
 
 
-@main.route('/search_images', methods=['GET', 'POST'])
-@login_required
-def search_images():
-    form = DateRangeForm(request.form)
 
-    if request.method == 'POST' and form.validate():
-        images = find_images(form)
-        return render_template('images.html', images=images)
+@main.route('/search_agents/', methods=['GET', 'POST'])
+def get_search_agents():
+    if request.method == 'POST':
+        new_keyword = request.json['keywords']
+        create_new_search_agent(new_keyword)
 
-    return render_template('search_images.html', form=form)
+    else:
+        results = get_all_agents()
+        return jsonify(result=results), 200
+

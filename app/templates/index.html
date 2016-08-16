@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="exampleApp">
+<html lang="en" ng-app="bonCoinApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +28,7 @@
     <![endif]-->
 </head>
 
-<body ng-app="exampleApp">
+<body ng-app="bonCoinApp">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -48,7 +48,7 @@
             <ul class="nav navbar-nav">
                 {% if current_user.is_authenticated %}
 
-                <li><a href="#/search_images">Search Images</a></li>
+                <li><a href="#/search_agents">Search Agents</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -106,7 +106,7 @@
 <script src="static/js/angularapp.js"></script>
 
 
-<script src="static/js/controller/search_imagesController.js"></script>
+<script src="static/js/controller/searchAgentsController.js"></script>
 
 
 </body>

@@ -1,0 +1,62 @@
+<form novalidate class="simple-form">
+    <div>
+            <div class="row">
+            <div class="col-md-2">
+                <div>
+                    <label>Key Word</label>
+                    <input type="text" name="keyword" class="form-control"
+                           ng-model="search_agent.keyword"
+                           required
+                            >
+                </div>
+
+        </div>
+        <hr/>
+    </div>
+
+</form>
+
+<div ng-if="rowCollection.length>0">
+
+    <table st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th st-sort="agent_keywords">Key word
+            </th>
+            <th st-sort="agent_active">Active</th>
+           
+        </tr>
+        <tr>
+
+            <th colspan="4">
+                <input st-search placeholder="global search" class="input-sm form-control" type="search"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in rowCollection">
+            <td>{{row.agent_keywords }}</td>
+            <td>{{row.active}}</td>
+
+
+        </tr>
+
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="70"></div>
+            </td>
+        </tr>
+
+
+        </tfoot>
+    </table>
+</div>
+<p class="alert alert-info" ng-if="search_agents.length == 0">
+    No Search Agents found.
+</p>
+
+
+

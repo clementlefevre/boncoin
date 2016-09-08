@@ -20,12 +20,18 @@ def retrieve_url():
     filter_on_new(url_list)
 
 
+def test():
+    q = db.session.query(Post).all()
+    print q
+
+
 def filter_on_new(url_list):
     for url in url_list:
         url = url.replace("//", "")
         url = 'https://' + url
         print url
         q = db.session.query(Post).filter(Post.post_url == url).all()
+
         if len(q) < 1:
             create_new_post(url)
 

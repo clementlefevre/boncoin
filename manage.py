@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import os
-from app.main.service.search_agents_service import retrieve_url
 
 COV = None
 if os.environ.get('BONCOIN_COVERAGE'):
@@ -19,7 +18,7 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 
 
-retrieve_url()
+# retrieve_url()
 
 
 def make_shell_context():

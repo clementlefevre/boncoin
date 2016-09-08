@@ -28,7 +28,13 @@ def create_app(config_name):
     bootstrap.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+
     db.init_app(app)
+
+    # bidouille of the year to allow access to db at start
+    db.app = app
+    db.create_all()
+
     login_manager.init_app(app)
     pagedown.init_app(app)
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+from app.main.service.search_agents_service import retrieve_url
 
 COV = None
 if os.environ.get('BONCOIN_COVERAGE'):
@@ -11,11 +12,14 @@ if os.environ.get('BONCOIN_COVERAGE'):
 from app import create_app, db
 from app.models import User, Role, Permission
 from flask.ext.script import Manager, Shell
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask.ext.migrate import MigrateCommand, Migrate
 
 app = create_app(os.getenv('BONCOIN_CONFIG') or 'default')
 manager = Manager(app)
 migrate = Migrate(app, db)
+
+
+retrieve_url()
 
 
 def make_shell_context():

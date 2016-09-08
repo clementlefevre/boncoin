@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="django" name="Django">
+      <configuration>
+        <option name="rootFolder" value="$MODULE_DIR$/app/auth" />
+        <option name="settingsModule" value="" />
+        <option name="manageScript" value="" />
+        <option name="environment" value="&lt;map/&gt;" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
@@ -12,9 +22,6 @@
       <list>
         <option value="$MODULE_DIR$/app/static/partials" />
         <option value="$MODULE_DIR$/app/static/resources/static" />
-        <option value="$MODULE_DIR$/app/static/resources/static/partials" />
-        <option value="$MODULE_DIR$/app/static/resources/static/partials/sites" />
-        <option value="$MODULE_DIR$/app/static/resources/static/templates" />
         <option value="$MODULE_DIR$/app/static/resources/static/node_modules/angular-google-maps/dist/coverage/dist" />
         <option value="$MODULE_DIR$/app/static/resources/static/node_modules/angular-google-maps/dist/coverage/dist/dist" />
         <option value="$MODULE_DIR$/app/templates" />

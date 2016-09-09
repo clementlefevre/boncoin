@@ -10,7 +10,8 @@ from apscheduler.triggers.interval import IntervalTrigger
 from bs4 import BeautifulSoup
 
 from app import db
-from app.email import send_email, send_mail_smtp
+from app.email import send_email
+from app.email_boncoin import send_mail_smtp
 from app.models import Post
 
 URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=patek%20philippe%20&it=1'
@@ -22,7 +23,7 @@ def retrieve_url():
     posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
     url_list = []
 
-    send_mail_smtp("Hello", "lista")
+    send_mail_smtp("Test", "test")
 
     for post in posts:
         url_list.extend([x['href'] for x in post.findAll('a')])
@@ -118,7 +119,7 @@ scheduler = BackgroundScheduler()
 scheduler.start()
 scheduler.add_job(
     func=retrieve_url,
-    trigger=IntervalTrigger(seconds=20),
+    trigger=IntervalTrigger(seconds=5),
     id='printing_job',
     name='Print date and time every five seconds',
     replace_existing=True)

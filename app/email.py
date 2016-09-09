@@ -1,5 +1,3 @@
-import os
-import smtplib
 from threading import Thread
 
 from flask import current_app, render_template
@@ -27,11 +25,3 @@ def send_email(to, subject, template, **kwargs):
     return thr
 
 
-def send_mail_smtp(title, value):
-    server = smtplib.SMTP('smtp.world4you.com', 587)
-    server.starttls()
-    print os.getenv('MAIL_USERNAME'), os.getenv('MAIL_PASSWORD')
-    server.login(os.getenv('MAIL_USERNAME'), os.getenv('MAIL_PASSWORD'))
-    message = 'Subject: %s\n\n%s' % (title, value)
-    server.sendmail("flask.admin@lefevre.at", "clement.san@gmail.com", message)
-    server.quit()

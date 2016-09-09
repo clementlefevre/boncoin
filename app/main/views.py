@@ -4,8 +4,6 @@ from flask.ext.login import login_required
 from flask.ext.sqlalchemy import get_debug_queries
 
 from . import main
-from app.main.forms import DateRangeForm
-from app.main.service.images_service import find_images
 from  app.main.service.search_agents_service import get_all_agents, retrieve_url
 from app.models import User
 
@@ -60,7 +58,6 @@ def get_images():
     return jsonify(result=results), 200
 
 
-
 @main.route('/test/', methods=['GET', 'POST'])
 def test():
     retrieve_url()
@@ -75,4 +72,3 @@ def get_search_agents():
     else:
         results = get_all_agents()
         return jsonify(result=results), 200
-

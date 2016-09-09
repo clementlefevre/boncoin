@@ -1,9 +1,8 @@
-from flask import Flask
+from flask import Flask, current_app
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
 from flask.ext.moment import Moment
 from flask.ext.login import LoginManager
-
 from flask.ext.pagedown import PageDown
 
 from shared import db
@@ -35,9 +34,6 @@ def create_app(config_name):
     db.app = app
     db.create_all()
 
-    # prevent app to launch twice apscheduler tasks
-    app.run(use_reloader=False)
-
     login_manager.init_app(app)
     pagedown.init_app(app)
 
@@ -50,5 +46,9 @@ def create_app(config_name):
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    with app.app_context():
+        # within this block, current_app points to app.
+        print current_app.name
 
     return app

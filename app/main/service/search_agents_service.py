@@ -1,10 +1,16 @@
+import atexit
 import urllib2
 import datetime
 import re
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
+from apscheduler.triggers.interval import IntervalTrigger
+
 from bs4 import BeautifulSoup
 
 from app import db
+from app.email import send_email, send_mail_smtp
 from app.models import Post
 
 URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=patek%20philippe%20&it=1'
@@ -15,6 +21,9 @@ def retrieve_url():
     soup = BeautifulSoup(html)
     posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
     url_list = []
+
+    send_mail_smtp("Hello", "lista")
+
     for post in posts:
         url_list.extend([x['href'] for x in post.findAll('a')])
         print datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -26,7 +35,13 @@ def test():
     print q
 
 
+def send_new_post_alert(new_urls):
+    send_email("clement.san@gmail.com", 'New Post Bon Coing',
+               'auth/email/new_post_alert', posts=new_urls)
+
+
 def filter_on_new(url_list):
+    new_urls = []
     for url in url_list:
         url = url.replace("//", "")
         url = 'https://' + url
@@ -34,7 +49,10 @@ def filter_on_new(url_list):
         q = db.session.query(Post).filter(Post.post_url == url).all()
 
         if len(q) < 1:
-            get_post_data(url)
+            new_post = get_post_data(url)
+            new_urls.append(new_post)
+    if len(new_urls) > 0:
+        send_new_post_alert(new_urls)
 
 
 def get_post_data(url):
@@ -56,6 +74,7 @@ def get_post_data(url):
     post = Post(**post)
     db.session.add(post)
     db.session.commit()
+    return post
 
 
 def get_text(soup, tag, subtags):
@@ -94,11 +113,6 @@ fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
 h = logging.StreamHandler()
 h.setFormatter(fmt)
 log.addHandler(h)
-
-import atexit
-
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
 
 scheduler = BackgroundScheduler()
 scheduler.start()

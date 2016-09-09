@@ -1,0 +1,11 @@
+Alert Bon Coing!
+
+
+ {% if posts is not none %}
+        {% for post in posts %}
+          {{ post.post_url }} -  {{ post.post_price }} - {{ post.post_description }}
+              ---------------------------------
+
+
+        {% endfor %}
+    {% endif %}

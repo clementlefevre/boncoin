@@ -1,0 +1,25 @@
+<p>Alert <b>Bon Coing</b>!</p>
+
+
+<table>
+    {% if posts is not none %}
+        {% for post in posts %}
+            <tr>
+
+
+                <td>
+                    <a href="{{ url_for('post.post_url', _external=True) }}">click here</a>
+                </td>
+                <td>
+                    {{ post.post_description }}
+                </td>
+                <td>
+                    {{ post.post_price }}
+                </td>
+
+
+            </tr>
+
+        {% endfor %}
+    {% endif %}
+</table>

@@ -3,10 +3,10 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
 from flask.ext.moment import Moment
 from flask.ext.login import LoginManager
+
 from flask.ext.pagedown import PageDown
 
 from shared import db
-
 from config import config
 
 bootstrap = Bootstrap()
@@ -34,6 +34,9 @@ def create_app(config_name):
     # bidouille of the year to allow access to db at start
     db.app = app
     db.create_all()
+
+    # prevent app to launch twice apscheduler tasks
+    app.run(use_reloader=False)
 
     login_manager.init_app(app)
     pagedown.init_app(app)

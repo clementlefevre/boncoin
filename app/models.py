@@ -3,7 +3,9 @@ import hashlib
 import json
 
 from flask import current_app, request
+
 from flask.ext.login import UserMixin, AnonymousUserMixin
+
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -275,7 +277,8 @@ class Post(db.Model):
     post_date = db.Column('post_date', db.String, nullable=True)
     post_price = db.Column('post_price', db.String, nullable=True)
     post_author = db.Column('post_author', db.String, nullable=True)
-    post_ville = db.Column('post_ville', db.String, nullable=True)
+    post_city = db.Column('post_city', db.String, nullable=True)
+    post_zip = db.Column('post_zip', db.String, nullable=True)
     post_email_sent = db.Column('post_email_sent', db.Boolean, nullable=False)
 
 

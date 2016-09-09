@@ -4,7 +4,7 @@ from flask.ext.login import login_required
 from flask.ext.sqlalchemy import get_debug_queries
 
 from . import main
-from  app.main.service.search_agents_service import get_all_agents, retrieve_url
+from  app.main.service.search_agents_service import retrieve_url
 from app.models import User
 
 
@@ -43,21 +43,6 @@ def index():
     return render_template('index.html')
 
 
-@main.route('/images/', methods=['POST'])
-def get_images():
-    if not request.json or 'caption' not in request.json:
-        abort(400)
-    images_request = {
-        'caption': request.json['caption'],
-        'date_from': request.json['date_from'],
-        'date_to': request.json['date_to']
-    }
-
-    results = find_images(images_request)
-
-    return jsonify(result=results), 200
-
-
 @main.route('/test/', methods=['GET', 'POST'])
 def test():
     retrieve_url()
@@ -67,7 +52,7 @@ def test():
 def get_search_agents():
     if request.method == 'POST':
         new_keyword = request.json['keywords']
-        create_new_search_agent(new_keyword)
+        # create_new_search_agent(new_keyword)
 
     else:
         results = get_all_agents()

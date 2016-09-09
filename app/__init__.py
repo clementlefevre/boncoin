@@ -2,16 +2,16 @@ from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
 from flask.ext.moment import Moment
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.pagedown import PageDown
+
+from shared import db
 
 from config import config
 
 bootstrap = Bootstrap()
 mail = Mail()
 moment = Moment()
-db = SQLAlchemy()
 
 pagedown = PageDown()
 
@@ -32,8 +32,8 @@ def create_app(config_name):
     db.init_app(app)
 
     # bidouille of the year to allow access to db at start
-    # db.app = app
-    # db.create_all()
+    db.app = app
+    db.create_all()
 
     login_manager.init_app(app)
     pagedown.init_app(app)

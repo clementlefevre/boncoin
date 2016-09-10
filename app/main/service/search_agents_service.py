@@ -11,24 +11,26 @@ from bs4 import BeautifulSoup
 
 from app import db
 from app.email import send_email
-from app.email_boncoin import send_mail_smtp
 from app.models import Post
+from manage import app
 
 URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=patek%20philippe%20&it=1'
 
 
 def retrieve_url():
-    html = urllib2.urlopen(URL).read()
-    soup = BeautifulSoup(html)
-    posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
-    url_list = []
+    with app.app_context():
+        html = urllib2.urlopen(URL).read()
+        soup = BeautifulSoup(html)
+        posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
+        url_list = []
 
-    send_mail_smtp("Test", "test")
+        # send_mail_smtp("Test", "test")
+        send_new_post_alert(url_list)
 
-    for post in posts:
-        url_list.extend([x['href'] for x in post.findAll('a')])
-        print datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    filter_on_new(url_list)
+        for post in posts:
+            url_list.extend([x['href'] for x in post.findAll('a')])
+            print datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        filter_on_new(url_list)
 
 
 def test():
@@ -115,13 +117,15 @@ h = logging.StreamHandler()
 h.setFormatter(fmt)
 log.addHandler(h)
 
-scheduler = BackgroundScheduler()
-scheduler.start()
-scheduler.add_job(
-    func=retrieve_url,
-    trigger=IntervalTrigger(seconds=5),
-    id='printing_job',
-    name='Print date and time every five seconds',
-    replace_existing=True)
-# Shut down the scheduler when exiting the app
-atexit.register(lambda: scheduler.shutdown())
+
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.start()
+    scheduler.add_job(
+        func=retrieve_url,
+        trigger=IntervalTrigger(seconds=5),
+        id='printing_job',
+        name='Print date and time every five seconds',
+        replace_existing=True)
+    # Shut down the scheduler when exiting the app
+    atexit.register(lambda: scheduler.shutdown())

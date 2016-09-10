@@ -4,7 +4,7 @@ from flask.ext.login import login_required
 from flask.ext.sqlalchemy import get_debug_queries
 
 from . import main
-from  app.main.service.search_agents_service import retrieve_url
+from  app.main.service.search_agents_service import start_scheduler
 from app.models import User
 
 
@@ -45,7 +45,7 @@ def index():
 
 @main.route('/test/', methods=['GET', 'POST'])
 def test():
-    retrieve_url()
+    start_scheduler()
 
 
 @main.route('/search_agents/', methods=['GET', 'POST'])

@@ -25,22 +25,24 @@ def retrieve_url():
         url_list = []
 
         # send_mail_smtp("Test", "test")
-        send_new_post_alert(url_list)
+
 
         for post in posts:
             url_list.extend([x['href'] for x in post.findAll('a')])
             print datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         filter_on_new(url_list)
+        post = get_all_post()
+        send_new_post_alert(post)
 
 
-def test():
+def get_all_post():
     q = db.session.query(Post).all()
-    print q
+    return q
 
 
-def send_new_post_alert(new_urls):
+def send_new_post_alert(posts):
     send_email("clement.san@gmail.com", 'New Post Bon Coing',
-               'auth/email/new_post_alert', posts=new_urls)
+               'auth/email/new_post_alert', posts=posts)
 
 
 def filter_on_new(url_list):

@@ -14,6 +14,12 @@ from app.models import User, Role, Permission
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import MigrateCommand, Migrate
 
+import psycopg2
+import psycopg2.extensions
+
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+
 app = create_app(os.getenv('BONCOIN_CONFIG') or 'default')
 manager = Manager(app)
 migrate = Migrate(app, db)

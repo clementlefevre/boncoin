@@ -32,7 +32,6 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('BONCOIN_PRODUCTION_DATABASE_URL')
-    SQLALCHEMY_DATABASE_URI = "postgresql://boncoin:clement2016@clement.crkipsfnh06g.eu-central-1.rds.amazonaws.com:5432/boncoin"
 
     print SQLALCHEMY_DATABASE_URI
 

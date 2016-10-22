@@ -3,7 +3,7 @@ var bonCoinApp = angular.module('bonCoinApp', ['ngRoute', 'ngAnimate', 'ui.boots
 
 bonCoinApp.config(function ($routeProvider, $httpProvider, localStorageServiceProvider) {
 
-    localStorageServiceProvider.setPrefix('image_matcher');
+    localStorageServiceProvider.setPrefix('bon_coin');
 
     $routeProvider.when('/search_agents', {
         templateUrl: '/static/partials/search_agents.html',

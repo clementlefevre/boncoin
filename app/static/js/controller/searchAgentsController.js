@@ -1,34 +1,31 @@
-/**
- * Created by lefevre on 07.09.2015.
- */
-
 bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $http, $route) {
     console.log("searchAgentsController reporting for duty.");
 
 
-var search_agents = function () {
+    var search_agents = function () {
 
         loadingDatas();
-        $scope.rowCollection = [];
+
+        $scope.search_agents = [];
 
         $http.get('search_agents/').success(function (data) {
             closeLoading();
+            $scope.search_agents = data.result;
 
-            $scope.rowCollection = data.result;
-            $scope.itemsByPage = 10;
 
         }).error(function (data, status) {
+            closeLoading();
             alert("Search error. Please try again or contact administrator.");
             return status;
         });
 
-
     };
 
 
-    $scope.search = {
-        'caption': '', 'date_from': '', 'date_to': ''
+    $scope.new_search_agent = {
+        'keywords': '', 'min_price': '', 'is_active': 'true'
     };
+
 
     var loadingDatas = function () {
         bootbox.dialog({
@@ -42,24 +39,84 @@ var search_agents = function () {
     };
 
 
-    $scope.search_images = function (search) {
+    $scope.addSearchAgent = function () {
 
         loadingDatas();
-        $scope.rowCollection = [];
+        new_search_agent = $scope.new_search_agent;
 
-        $http.post('images/', search).success(function (data) {
+        $http.post('search_agents/', new_search_agent).success(function (data) {
             closeLoading();
-
-            $scope.rowCollection = data.result;
-            $scope.itemsByPage = 10;
+            search_agents();
 
         }).error(function (data, status) {
+            closeLoading();
             alert("Search error. Please try again or contact administrator.");
             return status;
         });
 
 
     };
+
+    $scope.removeSearchAgent = function (search_agent_to_remove) {
+
+        loadingDatas();
+
+
+        $http.post('delete_search_agent/', search_agent_to_remove).success(function (data) {
+            closeLoading();
+            search_agents();
+
+        }).error(function (data, status) {
+            closeLoading();
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+    };
+
+    $scope.activateSearchAgent = function (search_agent_to_activate) {
+        loadingDatas();
+        $http.post('activate_search_agent/', search_agent_to_activate).success(function (data) {
+            closeLoading();
+            search_agents();
+
+        }).error(function (data, status) {
+            closeLoading();
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+    };
+
+    var get_scheduler_period = function () {
+        loadingDatas();
+        $http.get('scheduler_period/').success(function (data) {
+
+            $scope.scheduler_period = data.period;
+            closeLoading();
+
+
+        }).error(function (data, status) {
+            closeLoading();
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+    };
+
+
+    $scope.set_scheduler_period = function () {
+        loadingDatas();
+        period_to_set = {'period': $scope.scheduler_period}
+        $http.post('scheduler_period/', period_to_set).success(function (data) {
+            closeLoading();
+
+            $scope.scheduler_period = get_scheduler_period();
+
+        }).error(function (data, status) {
+            closeLoading();
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+    };
+
 
     $scope.sort = {
         column: 'name',
@@ -84,90 +141,7 @@ var search_agents = function () {
     $scope.today();
 
 
-    $scope.inlineOptions = {
-        customClass: getDayClass,
-        minDate: new Date(),
-        showWeeks: true
-    };
-
-    $scope.dateOptions = {
-        dateDisabled: disabled,
-        formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
-        minDate: new Date(2010, 1, 1),
-        startingDay: 1
-    };
-
-    // Disable weekend selection
-    function disabled(data) {
-        var date = data.date,
-            mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-    }
-
-    $scope.toggleMin = function () {
-        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-    };
-
-    $scope.toggleMin();
-
-    $scope.open_from = function () {
-        $scope.open_from.opened = true;
-    };
-
-    $scope.open_to = function () {
-        $scope.open_to.opened = true;
-    };
-
-    $scope.setDate = function (year, month, day) {
-        $scope.dt = new Date(year, month, day);
-    };
-
-    $scope.format = 'dd-MMMM-yyyy';
-    $scope.altInputFormats = ['M!/d!/yyyy'];
-
-    $scope.popup_from = {
-        opened: false
-    };
-
-    $scope.popup_to = {
-        opened: false
-    };
-
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-        {
-            date: tomorrow,
-            status: 'full'
-        },
-        {
-            date: afterTomorrow,
-            status: 'partially'
-        }
-    ];
-
-    function getDayClass(data) {
-        var date = data.date,
-            mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
-    }
-
     search_agents();
 
+    get_scheduler_period();
 });

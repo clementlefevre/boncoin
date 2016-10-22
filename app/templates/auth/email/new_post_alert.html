@@ -2,19 +2,23 @@
 
 
 <table>
+    <thead>
+    <td>Title</td>
+    <td>(Euros)</td>
+
+    </thead>
+    <tbody>
     {% if posts is not none %}
         {% for post in posts %}
             <tr>
-
-
                 <td>
-                    <a href={{ post.post_url }}>click here</a>
+                    <a href={{ post.post_url }}> {{ post.post_title }}</a>
                 </td>
                 <td>
-                    {{ post.post_description }}
+
                 </td>
                 <td>
-                    {{ post.post_price }}
+                    <b>{{ post.post_price }}</b>
                 </td>
 
 
@@ -22,4 +26,5 @@
 
         {% endfor %}
     {% endif %}
+    </tbody>
 </table>

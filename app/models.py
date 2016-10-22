@@ -3,9 +3,7 @@ import hashlib
 import json
 
 from flask import current_app, request
-
 from flask.ext.login import UserMixin, AnonymousUserMixin
-
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -285,5 +283,14 @@ class Post(db.Model):
 class SearchAgent(db.Model):
     __tablename__ = "search_agents"
     id = db.Column(db.Integer, primary_key=True)
-    agent_keywords = db.Column('agent_keywords', db.String, nullable=False)
-    agent_active = db.Column('agent_active', db.Boolean, nullable=False)
+    keywords = db.Column('keywords', db.String, nullable=False)
+    min_price = db.Column('min_price', db.Integer, nullable=False)
+    is_active = db.Column('is_active', db.Boolean, nullable=False)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'keywords': self.keywords,
+            'min_price': self.min_price,
+            'is_active': self.is_active,
+        }

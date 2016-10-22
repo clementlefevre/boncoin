@@ -286,6 +286,7 @@ class Post(db.Model):
 class SearchAgent(db.Model):
     __tablename__ = "search_agents"
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column('emails', db.String, nullable=False)
     keywords = db.Column('keywords', db.String, nullable=False)
     min_price = db.Column('min_price', db.Integer, nullable=False)
     is_active = db.Column('is_active', db.Boolean, nullable=False)

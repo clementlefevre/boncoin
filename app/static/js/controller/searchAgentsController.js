@@ -104,7 +104,7 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
 
     $scope.set_scheduler_period = function () {
         loadingDatas();
-        period_to_set = {'period': $scope.scheduler_period}
+        period_to_set = {'period': $scope.scheduler_period};
         $http.post('scheduler_period/', period_to_set).success(function (data) {
             closeLoading();
 

@@ -78,7 +78,7 @@ def get_search_agents():
         if not request.json or 'keywords' not in request.json:
             abort(400)
         new_search_agent = {
-
+            'emails': request.json['emails'],
             'keywords': request.json['keywords'],
             'min_price': request.json['min_price'],
             'is_active': request.json['is_active'],
@@ -122,6 +122,7 @@ def activate_search_agent():
 def agent_to_dict(request):
     search_agent = {
         'id': request.json['id'],
+        'emails': request.json['emails'],
         'keywords': request.json['keywords'],
         'min_price': request.json['min_price'],
         'is_active': request.json['is_active'],

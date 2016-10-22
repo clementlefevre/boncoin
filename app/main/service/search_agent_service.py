@@ -6,7 +6,6 @@ from app.models import SearchAgent
 
 def get_search_agent():
     q = db.session.query(SearchAgent).all()
-    # db.session.expunge_all()
     return q
 
 

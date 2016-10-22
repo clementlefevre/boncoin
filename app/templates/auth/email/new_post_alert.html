@@ -1,10 +1,12 @@
-<p>Alert <b>Bon Coing</b>!</p>
+<p><b>Bon Coing</b>!</p>
 
 
 <table>
     <thead>
-    <td>Title</td>
-    <td>(Euros)</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
 
     </thead>
     <tbody>
@@ -18,7 +20,19 @@
 
                 </td>
                 <td>
-                    <b>{{ post.post_price }}</b>
+                    {% if post.post_price>=0 %}
+                        <b>{{ post.post_price }} €</b>
+                    {% endif %}
+                    {% if post.post_price<0 %}
+                        <b>No price</b>
+                    {% endif %}
+
+                </td>
+                <td>
+                    {{ post.post_date }}
+                </td>
+                <td>
+                    {{ post.post_city }}
                 </td>
 
 

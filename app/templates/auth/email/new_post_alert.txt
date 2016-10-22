@@ -3,9 +3,7 @@ Alert Bon Coing!
 
  {% if posts is not none %}
         {% for post in posts %}
-          {{ post.post_url }} -  {{ post.post_price }} - {{ post.post_description }}
+          {{ post.post_url }} -  {{ post.post_price }}€ -  {% if post.post_price>=0 %}{{ post.post_price }} €{% endif %}{% if post.post_price<0 %}No price{% endif %}-{{ post.post_description }} - {{ post.post_city }}
               ---------------------------------
-
-
         {% endfor %}
     {% endif %}

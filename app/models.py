@@ -279,6 +279,9 @@ class Post(db.Model):
     post_zip = db.Column('post_zip', db.String, nullable=True)
     post_email_sent = db.Column('post_email_sent', db.Boolean, nullable=False)
 
+    def __repr__(self):
+        return self.post_url
+
 
 class SearchAgent(db.Model):
     __tablename__ = "search_agents"

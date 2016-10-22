@@ -2,6 +2,7 @@ import atexit
 import logging
 
 from apscheduler.schedulers.background import BackgroundScheduler
+
 from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.post_crawler_service import retrieve_url
@@ -24,14 +25,16 @@ period = 20
 
 def start_scheduler():
     stop_scheduler()
-    scheduler.start()
+    if not scheduler.running:
+        scheduler.start()
     app.logger.info('Scheduler job has been started')
     scheduler.add_job(
         func=retrieve_url,
         trigger=IntervalTrigger(minutes=get_scheduler_period()),
         id='printing_job',
-        name='Print date and time every five seconds',
+        name='Print date and time every five ' + str(get_scheduler_period()) + 'minutes',
         replace_existing=True)
+    app.logger.info(scheduler.state)
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
@@ -56,7 +59,8 @@ def set_scheduler_period(period_to_set):
         id='printing_job',
         name='Print date and time every five seconds',
         replace_existing=True)
-    print scheduler.get_jobs()
+    app.logger.info(scheduler.state)
+    start_scheduler()
 
 
 def get_scheduler_period():

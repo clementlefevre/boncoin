@@ -5,9 +5,15 @@ import urllib
 import urllib2
 import re
 from datetime import datetime
+import logging
+
+
 from app.models import Post
 
 BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q='
+
+
+
 
 def retrieve_description(agent):
     url = BASE_URL + urllib.quote(agent.keywords, safe='') + "&it=1"
@@ -65,7 +71,7 @@ def get_date(raw_post):
 def get_city(raw_post):
     city = raw_post.findAll("p", {"class": "item_supp"})
     if len(city) > 1:
-        city = city[1].get_text()
+        city = city[1].get_text().encode("utf-8")
         return ' '.join(city.split())
     return "Not found"
 

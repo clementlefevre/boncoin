@@ -10,17 +10,12 @@ from manage import app
 
 __author__ = 'ramon'
 
-log = logging.getLogger('apscheduler.executors.default')
-log.setLevel(logging.INFO)  # DEBUG
 
-fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-h = logging.StreamHandler()
-h.setFormatter(fmt)
-log.addHandler(h)
+logging.basicConfig()
 
 scheduler = BackgroundScheduler()
 
-period = 20
+period = 1
 
 
 def start_scheduler():
@@ -28,22 +23,29 @@ def start_scheduler():
     if not scheduler.running:
         scheduler.start()
     app.logger.info('Scheduler job has been started')
-    scheduler.add_job(
-        func=retrieve_url,
-        trigger=IntervalTrigger(minutes=get_scheduler_period()),
-        id='printing_job',
-        name='Print date and time every five ' + str(get_scheduler_period()) + 'minutes',
-        replace_existing=True)
-    app.logger.info(scheduler.state)
+    add_job()
+
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
 
+def add_job():
+    global scheduler
+    log = logging.getLogger('apscheduler.executors.default')
+    log.setLevel(logging.INFO)  # DEBUG
+
+    
+    scheduler.add_job(
+    func=retrieve_url,
+    trigger=IntervalTrigger(minutes=get_scheduler_period()),
+    id='printing_job',
+    name='Print date and time every ' + str(get_scheduler_period()) + 'minutes',
+    replace_existing=True)
+
 def stop_scheduler():
     if scheduler.state == "STATE_RUNNING":
         scheduler.remove_jobstore()
-    if  scheduler.running:
-        scheduler.shutdown()
+   
     app.logger.info('Scheduler job have been removed')
 
 
@@ -53,14 +55,9 @@ def set_scheduler_period(period_to_set):
     period = period_to_set
     print "Period is now " + str(period)
     stop_scheduler()
+    add_job()
 
-    scheduler.add_job(
-        func=retrieve_url,
-        trigger=IntervalTrigger(minutes=get_scheduler_period()),
-        id='printing_job',
-        name='Print date and time every five seconds',
-        replace_existing=True)
-    app.logger.info(scheduler.state)
+
     start_scheduler()
 
 

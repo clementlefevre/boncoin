@@ -1,9 +1,7 @@
 # coding: utf8
 #
-
+import sys
 import logging
-
-
 from app import db
 from manage import app
 
@@ -13,25 +11,18 @@ from app.models import Post
 
 from app.email import send_email
 
-log = logging.getLogger('apscheduler.executors.default')
-log.setLevel(logging.INFO)  # DEBUG
-
-fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-h = logging.StreamHandler()
-h.setFormatter(fmt)
-log.addHandler(h)
-
-
 
 def retrieve_url():
-    with app.app_context():
-        agents = get_search_agent()
-        active_agents = [x for x in agents if x.is_active]
-        for agent in active_agents:
-            posts_raw = retrieve_description(agent)
-            post_objects = convert_to_post(posts_raw)
-            filter_on_new(post_objects, agent)
-
+    try:
+        with app.app_context():
+            agents = get_search_agent()
+            active_agents = [x for x in agents if x.is_active]
+            for agent in active_agents:
+                posts_raw = retrieve_description(agent)
+                post_objects = convert_to_post(posts_raw)
+                filter_on_new(post_objects, agent)
+    except :
+        print sys.exc_info()[0]
 
 
 def filter_on_new(posts, agent):

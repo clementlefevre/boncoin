@@ -1,42 +1,13 @@
-# coding: utf8
+from bs4 import BeautifulSoup
+
+
 import urllib
 import urllib2
 import re
-import logging
-
-from bs4 import BeautifulSoup
-
-from app import db
-from app.email import send_email
-from app.main.service.search_agent_service import get_search_agent
+from datetime import datetime
 from app.models import Post
-from manage import app
-
-log = logging.getLogger('apscheduler.executors.default')
-log.setLevel(logging.INFO)  # DEBUG
-
-fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-h = logging.StreamHandler()
-h.setFormatter(fmt)
-log.addHandler(h)
 
 BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q='
-
-
-def retrieve_url():
-    with app.app_context():
-        agents = get_search_agent()
-        active_agents = [x for x in agents if x.is_active]
-        for agent in active_agents:
-            posts_raw = retrieve_description(agent)
-            post_objects = convert_to_post(posts_raw)
-            filter_on_new(post_objects, agent)
-
-
-def get_all_post():
-    q = db.session.query(Post).all()
-    return q
-
 
 def retrieve_description(agent):
     url = BASE_URL + urllib.quote(agent.keywords, safe='') + "&it=1"
@@ -58,18 +29,15 @@ def convert_to_post(raw_posts):
         post['post_url'] = get_url(raw_post)
         post['post_title'] = get_title(raw_post)
         post['post_city'] = get_city(raw_post)
-
         post['post_date'] = get_date(raw_post)
-
         post['post_price'] = get_price(raw_post)
         post['post_images'] = ""
-
         post['post_author'] = ""
         post['post_zip'] = ""
-        post['post_email_sent'] = False
+        post['post_retrieved_on'] = datetime.now()
 
         post = Post(**post)
-        print post
+
         posts.append(post)
     return posts
 
@@ -105,30 +73,6 @@ def get_city(raw_post):
 def get_title(raw_post):
     title = raw_post.findAll("h2", {"class": "item_title"})[0].get_text().lstrip().rstrip()
     if title is not None:
-        return title
+        return title.encode("utf-8")
     return "Not found"
 
-
-def send_new_post_alert(posts, keywords):
-    send_email("clement.san@gmail.com", keywords + ': ' + str(len(posts)) + ' new',
-               'auth/email/new_post_alert', posts=posts)
-
-
-def filter_on_new(posts, agent):
-    new_posts = []
-    posts = [post for post in posts if (post.post_price >= agent.min_price | post.post_price < 0)]
-    for post in posts:
-        q = db.session.query(Post).filter(Post.post_url == post.post_url).all()
-
-        if len(q) < 1:
-            new_posts.append(post)
-
-    if len(new_posts) > 0:
-        for new_post in new_posts:
-            db.session.add(new_post)
-            db.session.commit()
-        send_new_post_alert(new_posts, agent.keywords)
-
-
-def find_post(post_id):
-    return db.session.query(Post).get(post_id)

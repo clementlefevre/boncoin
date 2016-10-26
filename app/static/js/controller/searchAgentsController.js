@@ -21,9 +21,45 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
 
     };
 
+    var get_scheduler_status = function(){
+        loadingDatas();
+        $scope.scheduler_status = 0;
+        $http.get('scheduler_status/').success(function (data) {
+            closeLoading();
+            $scope.scheduler_status = data.status;
+           
+
+        }).error(function (data, status) {
+            closeLoading();
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+
+    }
+
+    $scope.start_scheduler = function(){
+        $http.get('start_scheduler/').success(function (data) {
+            get_scheduler_status();
+        }).error(function (data, status) {
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+
+    }
+
+        $scope.stop_scheduler = function(){
+        $http.get('stop_scheduler/').success(function (data) {
+            get_scheduler_status()
+        }).error(function (data, status) {
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+
+    }
+
 
     $scope.new_search_agent = {
-        'keywords': '', 'min_price': '', 'is_active': 'true'
+        'keywords': '', 'min_price': '', 'is_active': 'true', 'email': ''
     };
 
 
@@ -109,6 +145,7 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
             closeLoading();
 
             $scope.scheduler_period = get_scheduler_period();
+            get_scheduler_status();
 
         }).error(function (data, status) {
             closeLoading();
@@ -144,4 +181,6 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
     search_agents();
 
     get_scheduler_period();
+
+    get_scheduler_status();
 });

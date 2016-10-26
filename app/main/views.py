@@ -6,7 +6,7 @@ from flask.ext.sqlalchemy import get_debug_queries
 from . import main
 from app.main.service import search_agent_service
 from  app.main.service.scheduler_service import start_scheduler, stop_scheduler, set_scheduler_period, \
-    get_scheduler_period
+    get_scheduler_period,get_scheduler_status
 from app.main.service.search_agent_service import create_search_agent, get_search_agent, exists, delete_search_agent
 from app.models import User, SearchAgent
 
@@ -49,11 +49,18 @@ def index():
 @main.route('/start_scheduler/', methods=['GET'])
 def start_crawler():
     start_scheduler()
+    return ('', 204)
 
 
-@main.route('/start_scheduler/', methods=['GET'])
+@main.route('/stop_scheduler/', methods=['GET'])
 def stop_crawler():
     stop_scheduler()
+    return ('', 204)
+
+@main.route('/scheduler_status/', methods=['GET'])
+def get_crawler_status():
+    return jsonify(status = get_scheduler_status())
+
 
 
 @main.route('/scheduler_period/', methods=['GET', 'POST'])
@@ -78,8 +85,8 @@ def get_search_agents():
         if not request.json or 'keywords' not in request.json:
             abort(400)
         new_search_agent = {
-            'emails': request.json['emails'],
-            'keywords': request.json['keywords'],
+            'email': request.json['email'],
+            'keywords': request.json['keywords'].lower(),
             'min_price': request.json['min_price'],
             'is_active': request.json['is_active'],
 
@@ -119,10 +126,11 @@ def activate_search_agent():
     return return_agents()
 
 
+
 def agent_to_dict(request):
     search_agent = {
         'id': request.json['id'],
-        'emails': request.json['emails'],
+        'email': request.json['email'],
         'keywords': request.json['keywords'],
         'min_price': request.json['min_price'],
         'is_active': request.json['is_active'],

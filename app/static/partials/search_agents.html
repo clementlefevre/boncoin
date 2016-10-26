@@ -7,7 +7,17 @@
 
 <div class="row">
 
+
     <div class="col-md-4">
+   
+        <div ng-if="scheduler_status==0">
+            <input type="button" value="Start crawler !" class="btn btn-info" ng-click="start_scheduler()"/>
+        </div>
+
+        <div ng-if="scheduler_status==1">
+            <input type="button" value="Stop crawler !" class="btn btn-danger" ng-click="stop_scheduler()"/>
+        </div>
+
         <form class="form-horizontal" role="form" ng-submit="set_scheduler_period()">
 
             <div class="form-group">
@@ -24,7 +34,7 @@
 
         <h4>Add Agent :</h4>
 
-        <form class="form-horizontal" role="form" ng-submit="addSearchAgent()">
+        <form class="form-horizontal" role="form" ng-submit="addSearchAgent()" name="form">
             <div class="form-group">
                 <label class="col-md-2 control-label">Key word</label>
 
@@ -34,21 +44,31 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label">Min Price</label>
+                <label class="col-md-2 control-label">email</label>
 
                 <div class="col-md-4">
-                    <input type="number" width="200" name="input" ng-model="new_search_agent.min_price"
-                           min="0" max="100000" required>
+                    <input name="emailInput" ng-model="new_search_agent.email" type="email" required>
                 </div>
             </div>
 
 
-            <div class="form-group" ng-if="new_search_agent.keywords!=='' && new_search_agent.min_price>0">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Min Price</label>
+
+                <div class="col-md-4">
+                    <input type="number" width="200" name="minprice" ng-model="new_search_agent.min_price"
+                           min="0" max="100000" required>
+                </div>
+            </div>
+
+            <div class="form-group"
+                 ng-if="new_search_agent.keywords.length>2 && new_search_agent.min_price>0 && form.emailInput.$valid">
                 <div>
                     <input type="submit" value="Add !" class="btn btn-primary"/>
                 </div>
             </div>
         </form>
+
     </div>
     <div class="col-md-8">
         <table class="table">

@@ -1,6 +1,9 @@
+# coding: utf8
+#
+from __future__ import unicode_literals
+
 import datetime
 import hashlib
-import json
 
 from flask import current_app, request
 from flask.ext.login import UserMixin, AnonymousUserMixin
@@ -220,51 +223,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-class Article(db.Model):
-    __tablename__ = "articles"
-
-    id = db.Column(db.Integer, primary_key=True)
-    article_hash = db.Column('article_hash', db.String)
-    article_title = db.Column('article_title', db.String, nullable=True)
-    article_link = db.Column('article_link', db.String, nullable=True)
-    article_date = db.Column('article_date', db.String, nullable=True)
-    date = db.Column('date', db.DATE, nullable=True)
-    images = db.relationship("Image", backref='articles', lazy='dynamic')
-
-    def to_JSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
-
-    def __getstate__(self):
-        state = self.__dict__.copy()
-        del state['_sa_instance_state']
-        return state
-
-    def __setstate__(self, state):
-        self.__dict__.update(state)
-
-
-class Image(db.Model):
-    __tablename__ = "images"
-    image_hash = db.Column('image_hash', db.String, primary_key=True)
-    image_link = db.Column('image_link', db.String)
-    image_caption = db.Column('image_caption', db.String)
-    article_id = db.Column(db.Integer, db.ForeignKey('articles.id'))
-
-    def to_JSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
-
-    def __getstate__(self):
-        state = self.__dict__.copy()
-        del state['_sa_instance_state']
-
-        return state
-
-    def __setstate__(self, state):
-        self.__dict__.update(state)
-
-
 class Post(db.Model):
     __tablename__ = "posts"
     id = db.Column(db.Integer, primary_key=True)
@@ -277,16 +235,21 @@ class Post(db.Model):
     post_author = db.Column('post_author', db.String, nullable=True)
     post_city = db.Column('post_city', db.String, nullable=True)
     post_zip = db.Column('post_zip', db.String, nullable=True)
-    post_email_sent = db.Column('post_email_sent', db.Boolean, nullable=False)
+    post_retrieved_on = db.Column('post_retrieved_on', db.DateTime, nullable=False)
 
     def __repr__(self):
-        return self.post_url
+        print "self.post_title"
+        print type(self.post_title)
+        title = (self.post_title)
+
+
+        return (title)
 
 
 class SearchAgent(db.Model):
     __tablename__ = "search_agents"
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column('emails', db.String, nullable=False)
+    email = db.Column('email', db.String, nullable=False)
     keywords = db.Column('keywords', db.String, nullable=False)
     min_price = db.Column('min_price', db.Integer, nullable=False)
     is_active = db.Column('is_active', db.Boolean, nullable=False)
@@ -294,6 +257,7 @@ class SearchAgent(db.Model):
     def serialize(self):
         return {
             'id': self.id,
+            'email': self.email,
             'keywords': self.keywords,
             'min_price': self.min_price,
             'is_active': self.is_active,

@@ -5,7 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from apscheduler.triggers.interval import IntervalTrigger
 
-from app.main.service.post_crawler_service import retrieve_url
+from app.main.service.posts_service import retrieve_url
 from manage import app
 
 __author__ = 'ramon'
@@ -42,6 +42,8 @@ def start_scheduler():
 def stop_scheduler():
     if scheduler.state == "STATE_RUNNING":
         scheduler.remove_jobstore()
+    if  scheduler.running:
+        scheduler.shutdown()
     app.logger.info('Scheduler job have been removed')
 
 
@@ -50,8 +52,7 @@ def set_scheduler_period(period_to_set):
     print period
     period = period_to_set
     print "Period is now " + str(period)
-    if scheduler.state == "STATE_RUNNING":
-        scheduler.remove_jobstore()
+    stop_scheduler()
 
     scheduler.add_job(
         func=retrieve_url,
@@ -70,3 +71,7 @@ def get_scheduler_period():
         period = 5
     print "current Period is : " + str(period)
     return period
+
+
+def get_scheduler_status():
+    return scheduler.state

@@ -4,7 +4,7 @@ import sys
 import logging
 from datetime import datetime,timedelta
 import calendar
-from ./././manage import app
+from manage import app
 
 from app import db
 

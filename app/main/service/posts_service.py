@@ -4,8 +4,10 @@ import sys
 import logging
 from datetime import datetime,timedelta
 import calendar
+from ./././manage import app
+
 from app import db
-from manage import app
+
 from sqlalchemy import cast, DATE
 
 from app.main.service.search_agent_service import get_search_agent

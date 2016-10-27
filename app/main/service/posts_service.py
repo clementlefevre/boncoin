@@ -4,7 +4,7 @@ import sys
 import logging
 from datetime import datetime,timedelta
 import calendar
-from manage import app
+import manage
 
 from app import db
 
@@ -22,7 +22,7 @@ DAYS_IN_PAST = 1
 
 def retrieve_url():
     
-        with app.app_context():
+        with manage.app.app_context():
 
             agents = get_search_agent()
             active_agents = [x for x in agents if x.is_active]

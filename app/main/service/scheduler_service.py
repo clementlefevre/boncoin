@@ -7,6 +7,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.posts_service import retrieve_url,clean_old_post
 
+import manage
 
 __author__ = 'ramon'
 
@@ -24,7 +25,7 @@ def start_scheduler():
     stop_scheduler()
     if not scheduler.running:
         scheduler.start()
-    app.logger.info('Scheduler job has been started')
+    manage.app.logger.info('Scheduler job has been started')
     add_job_scraper()
     add_job_cleaner()
 
@@ -58,7 +59,7 @@ def stop_scheduler():
     if scheduler.state == "STATE_RUNNING":
         scheduler.remove_jobstore()
    
-    app.logger.info('Scheduler job have been removed')
+    manage.app.logger.info('Scheduler job have been removed')
 
 
 def set_scheduler_period(period_to_set):

@@ -21,6 +21,23 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
 
     };
 
+    $scope.retrieve_url = function(){
+        loadingDatas();
+      
+        $http.get('retrieve_url/').success(function (data) {
+            closeLoading();
+           
+           
+
+        }).error(function (data, status) {
+            closeLoading();
+            alert("Search error. Please try again or contact administrator.");
+            return status;
+        });
+
+    }
+
+
     var get_scheduler_status = function(){
         loadingDatas();
         $scope.scheduler_status = 0;
@@ -36,6 +53,8 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
         });
 
     }
+
+
 
     $scope.start_scheduler = function(){
         $http.get('start_scheduler/').success(function (data) {

@@ -9,6 +9,7 @@ from  app.main.service.scheduler_service import start_scheduler, stop_scheduler,
     get_scheduler_period,get_scheduler_status
 from app.main.service.search_agent_service import create_search_agent, get_search_agent, exists, delete_search_agent
 from app.models import User, SearchAgent
+from app.main.service.posts_service import retrieve_url
 
 
 @main.after_app_request
@@ -61,6 +62,12 @@ def stop_crawler():
 def get_crawler_status():
     return jsonify(status = get_scheduler_status())
 
+
+@main.route('/retrieve_url/', methods=['GET'])
+def retrieve_url_manually():
+    retrieve_url()
+    return ('', 204)
+    
 
 
 @main.route('/scheduler_period/', methods=['GET', 'POST'])

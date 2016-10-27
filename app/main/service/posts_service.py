@@ -2,8 +2,11 @@
 #
 import sys
 import logging
+from datetime import datetime,timedelta
+import calendar
 from app import db
 from manage import app
+from sqlalchemy import cast, DATE
 
 from app.main.service.search_agent_service import get_search_agent
 from scraper_service import retrieve_description,convert_to_post
@@ -12,17 +15,22 @@ from app.models import Post
 from app.email import send_email
 
 
+DAYS_IN_PAST = 1
+
+
 def retrieve_url():
-    try:
+    
         with app.app_context():
+
             agents = get_search_agent()
             active_agents = [x for x in agents if x.is_active]
             for agent in active_agents:
-                posts_raw = retrieve_description(agent)
-                post_objects = convert_to_post(posts_raw)
-                filter_on_new(post_objects, agent)
-    except :
-        print sys.exc_info()[0]
+                try:
+                    posts_raw = retrieve_description(agent)
+                    post_objects = convert_to_post(posts_raw)
+                    filter_on_new(post_objects, agent)
+                except :
+                    app.logger.exception(agent.keywords)
 
 
 def filter_on_new(posts, agent):
@@ -40,8 +48,15 @@ def filter_on_new(posts, agent):
         send_new_post_alert(new_posts, agent)
 
 
-def find_post(post_id):
-    return db.session.query(Post).get(post_id)
+def clean_old_post():
+    last_days = datetime.utcnow()- timedelta(days=DAYS_IN_PAST)
+    app.logger.info("last days  : "+ str(last_days))
+    old_posts = db.session.query(Post).filter(Post.post_retrieved_on<=last_days).all()
+    for old_post in old_posts:
+        db.session.delete(old_post)
+        db.session.commit()
+    app.logger.info("Deleted "+ str(len(old_posts))+" old posts.")
+
 
 
 

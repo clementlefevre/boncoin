@@ -5,7 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from apscheduler.triggers.interval import IntervalTrigger
 
-from app.main.service.posts_service import retrieve_url
+from app.main.service.posts_service import retrieve_url,clean_old_post
 from manage import app
 
 __author__ = 'ramon'
@@ -15,7 +15,9 @@ logging.basicConfig()
 
 scheduler = BackgroundScheduler()
 
-period = 1
+period_scrap_mn = 1
+
+period_clean_mn = 1
 
 
 def start_scheduler():
@@ -23,23 +25,33 @@ def start_scheduler():
     if not scheduler.running:
         scheduler.start()
     app.logger.info('Scheduler job has been started')
-    add_job()
+    add_job_scraper()
+    add_job_cleaner()
 
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
 
-def add_job():
+def add_job_scraper():
     global scheduler
     log = logging.getLogger('apscheduler.executors.default')
     log.setLevel(logging.INFO)  # DEBUG
-
-    
     scheduler.add_job(
     func=retrieve_url,
     trigger=IntervalTrigger(minutes=get_scheduler_period()),
-    id='printing_job',
-    name='Print date and time every ' + str(get_scheduler_period()) + 'minutes',
+    id='scraping_job',
+    name='scrap the web every ' + str(get_scheduler_period()) + 'minutes',
+    replace_existing=True)
+
+def add_job_cleaner():
+    
+    log = logging.getLogger('apscheduler.executors.default')
+    log.setLevel(logging.INFO)  # DEBUG
+    scheduler.add_job(
+    func=clean_old_post,
+    trigger=IntervalTrigger(minutes=period_clean_mn),
+    id='cleaning_job',
+    name='clean DB for olds posts every ' + str(period_clean_mn) + 'minutes',
     replace_existing=True)
 
 def stop_scheduler():
@@ -52,22 +64,21 @@ def stop_scheduler():
 def set_scheduler_period(period_to_set):
     global period
     print period
-    period = period_to_set
-    print "Period is now " + str(period)
+    period_scrap_mn = period_to_set
+    print "Period is now " + str(period_scrap_mn)
     stop_scheduler()
     add_job()
-
 
     start_scheduler()
 
 
 def get_scheduler_period():
-    global period
+    global period_scrap_mn
 
-    if period is None:
-        period = 5
-    print "current Period is : " + str(period)
-    return period
+    if period_scrap_mn is None:
+        period_scrap_mn = 5
+    print "current Period is : " + str(period_scrap_mn)
+    return period_scrap_mn
 
 
 def get_scheduler_status():

@@ -1,7 +1,10 @@
+
+
 from bs4 import BeautifulSoup
 
 
-import urllib
+
+from requests.utils import quote
 import urllib2
 import re
 from datetime import datetime
@@ -13,10 +16,14 @@ from app.models import Post
 BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q='
 
 
-
-
 def retrieve_description(agent):
-    url = BASE_URL + urllib.quote(agent.keywords, safe='') + "&it=1"
+    print ("agent.keywords str" + agent.keywords)
+    print ("agent.keywords type" + str(type(agent.keywords)))
+
+    print ("agent.keywords unicode " + agent.keywords.encode("utf-8"))
+    
+    url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
+    print ("url"+url)
     html = urllib2.urlopen(url).read()
     soup = BeautifulSoup(html, "html5lib")
     post_raw = []

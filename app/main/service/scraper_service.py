@@ -19,7 +19,7 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 
 def retrieve_description(agent):
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
-    print ("url"+url)
+    print ("url : "+url)
     request = urllib2.urlopen(url)
 
     # Check the encoding of the page before reading it

@@ -41,7 +41,7 @@ def add_job_scraper():
     func=retrieve_url,
     trigger=IntervalTrigger(minutes=get_scheduler_period()),
     id='scraping_job',
-    name='scrap the web every ' + str(get_scheduler_period()) + 'minutes',
+    name='scrap the web every ' + str(get_scheduler_period()) + ' minutes',
     replace_existing=True)
 
 def add_job_cleaner():
@@ -52,7 +52,7 @@ def add_job_cleaner():
     func=clean_old_post,
     trigger=IntervalTrigger(minutes=period_clean_mn),
     id='cleaning_job',
-    name='clean DB for olds posts every ' + str(period_clean_mn) + 'minutes',
+    name='clean DB for olds posts every ' + str(period_clean_mn) + ' minutes',
     replace_existing=True)
 
 def stop_scheduler():

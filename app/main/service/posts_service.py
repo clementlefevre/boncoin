@@ -32,7 +32,7 @@ def retrieve_url():
                     post_objects = convert_to_post(posts_raw)
                     filter_on_new(post_objects, agent)
                 except :
-                    app.logger.exception(agent.keywords)
+                    manage.app.logger.exception(agent.keywords)
 
 
 def filter_on_new(posts, agent):

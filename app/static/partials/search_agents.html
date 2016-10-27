@@ -9,20 +9,18 @@
 
 
     <div class="col-md-4">
-     <div >
-            <input type="button" value="NOW  !" class="btn btn-info" ng-click="retrieve_url()"/>
-        </div>
+
    
-        <div ng-if="scheduler_status==0">
+        
+
+        <form class="form-horizontal" role="form" ng-submit="set_scheduler_period()">
+        <div class="form-group" ng-if="scheduler_status==0">
             <input type="button" value="Start crawler !" class="btn btn-info" ng-click="start_scheduler()"/>
         </div>
 
-        <div ng-if="scheduler_status==1">
+        <div class="form-group" ng-if="scheduler_status==1">
             <input type="button" value="Stop crawler !" class="btn btn-danger" ng-click="stop_scheduler()"/>
         </div>
-
-        <form class="form-horizontal" role="form" ng-submit="set_scheduler_period()">
-
             <div class="form-group">
                 <label class="col-md-2 control-label">every (mn): </label>
 

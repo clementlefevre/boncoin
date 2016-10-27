@@ -1,5 +1,5 @@
 
-
+# coding: utf8
 from bs4 import BeautifulSoup
 
 
@@ -9,6 +9,7 @@ import urllib2
 import re
 from datetime import datetime
 import logging
+import encodings
 
 
 from app.models import Post
@@ -17,19 +18,22 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 
 
 def retrieve_description(agent):
-    print ("agent.keywords str" + agent.keywords)
-    print ("agent.keywords type" + str(type(agent.keywords)))
-
-    print ("agent.keywords unicode " + agent.keywords.encode("utf-8"))
-    
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
     print ("url"+url)
-    html = urllib2.urlopen(url).read()
+    request = urllib2.urlopen(url)
+
+    # Check the encoding of the page before reading it
+    charset = request.headers['content-type'].split('charset=')[-1]
+
+
+    html = request.read().decode(charset)
+
     soup = BeautifulSoup(html, "html5lib")
     post_raw = []
     posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
     post_raw += [x.find('a') for x in posts[0].findAll('li')]
     return post_raw
+
 
 
 def convert_to_post(raw_posts):
@@ -42,6 +46,9 @@ def convert_to_post(raw_posts):
         post['post_url'] = get_url(raw_post)
         post['post_title'] = get_title(raw_post)
         post['post_city'] = get_city(raw_post)
+        city_str = post['post_city']
+
+        # test_encoding(city_str)
         post['post_date'] = get_date(raw_post)
         post['post_price'] = get_price(raw_post)
         post['post_images'] = ""

@@ -17,7 +17,7 @@ scheduler = BackgroundScheduler()
 
 period_scrap_mn = 1
 
-period_clean_mn = 1
+period_clean_mn = 60*24
 
 
 def start_scheduler():
@@ -62,12 +62,11 @@ def stop_scheduler():
 
 
 def set_scheduler_period(period_to_set):
-    global period
-    print period
+    global period_scrap_mn
     period_scrap_mn = period_to_set
     print "Period is now " + str(period_scrap_mn)
     stop_scheduler()
-    add_job()
+    add_job_scraper()
 
     start_scheduler()
 

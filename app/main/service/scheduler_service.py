@@ -6,7 +6,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.posts_service import retrieve_url,clean_old_post
-from manage import app
+
 
 __author__ = 'ramon'
 

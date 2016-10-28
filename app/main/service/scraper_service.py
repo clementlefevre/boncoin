@@ -1,16 +1,11 @@
 
 # coding: utf8
-from bs4 import BeautifulSoup
-
-
-
-from requests.utils import quote
 import urllib2
 import re
 from datetime import datetime
-import logging
-import encodings
 
+from bs4 import BeautifulSoup
+from requests.utils import quote
 
 from app.models import Post
 

@@ -242,7 +242,6 @@ class Post(db.Model):
         print type(self.post_title)
         title = (self.post_title)
 
-
         return (title)
 
 
@@ -262,3 +261,9 @@ class SearchAgent(db.Model):
             'min_price': self.min_price,
             'is_active': self.is_active,
         }
+
+
+class PeriodManager():
+    def __init__(self, scraper_period, cleaner_period):
+        self.scraper_period = scraper_period
+        self.cleaner_period = cleaner_period

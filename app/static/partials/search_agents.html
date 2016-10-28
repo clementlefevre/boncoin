@@ -10,30 +10,30 @@
 
     <div class="col-md-4">
 
-   
-        
 
         <form class="form-horizontal" role="form" ng-submit="set_scheduler_period()">
-        <div class="form-group" ng-if="scheduler_status==0">
-            <input type="button" value="Start crawler !" class="btn btn-info" ng-click="start_scheduler()"/>
-        </div>
+            <div class="form-group" ng-if="scheduler_status!=1">
+                <input type="button" value="Start crawler !" class="btn btn-info" ng-click="start_scheduler()"/>
+            </div>
 
-        <div class="form-group" ng-if="scheduler_status==1">
-            <input type="button" value="Stop crawler !" class="btn btn-danger" ng-click="stop_scheduler()"/>
-        </div>
+            <div class="form-group" ng-if="scheduler_status==1">
+                <input type="button" value="Stop crawler !" class="btn btn-danger" ng-click="stop_scheduler()"/>
+            </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">every (mn): </label>
 
-                <div class="col-md-4">
+                <div>
                     <input type="number" width="200" name="input" ng-model="scheduler_period"
                            min="1" max="3600" required>
                 </div>
+
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Change !" class="btn btn-primary"/>
             </div>
 
         </form>
 
-        <h4>Add Agent :</h4>
 
         <form class="form-horizontal" role="form" ng-submit="addSearchAgent()" name="form">
             <div class="form-group">
@@ -70,47 +70,47 @@
             </div>
         </form>
 
+
+        <div class="col-md-8">
+            <table class="table">
+                <tr>
+                    <th>Key word
+                    </th>
+                    <th>Min Price
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                <tr ng-repeat="agent in search_agents">
+
+                    <td>{{ agent.keywords }}
+                    </td>
+                    <td>{{ agent.min_price }}
+                    </td>
+                    <td>
+                        <div ng-if="!agent.is_active">
+                            <input type="button" value="Activate" class="btn btn-info"
+                                   ng-click="activateSearchAgent(agent)"/>
+                        </div>
+                        <div ng-if="agent.is_active">
+                            <input type="button" value="Deactivate" class="btn btn-warning"
+                                   ng-click="activateSearchAgent(agent)"/>
+                        </div>
+
+
+                    </td>
+                    <td>
+                        <input type="button" value="Remove" class="btn btn-danger" ng-click="removeSearchAgent(agent)"/>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="alert alert-info" ng-if="search_agents.length == 0">
+                No Search Agents found.
+            </p></div>
     </div>
-    <div class="col-md-8">
-        <table class="table">
-            <tr>
-                <th>Key word
-                </th>
-                <th>Min Price
-                </th>
-                <th>
-                </th>
-                <th>
-                </th>
-            </tr>
-            <tr ng-repeat="agent in search_agents">
-
-                <td>{{ agent.keywords }}
-                </td>
-                <td>{{ agent.min_price }}
-                </td>
-                <td>
-                    <div ng-if="!agent.is_active">
-                        <input type="button" value="Activate" class="btn btn-info"
-                               ng-click="activateSearchAgent(agent)"/>
-                    </div>
-                    <div ng-if="agent.is_active">
-                        <input type="button" value="Deactivate" class="btn btn-warning"
-                               ng-click="activateSearchAgent(agent)"/>
-                    </div>
-
-
-                </td>
-                <td>
-                    <input type="button" value="Remove" class="btn btn-danger" ng-click="removeSearchAgent(agent)"/>
-                </td>
-            </tr>
-        </table>
-
-        <p class="alert alert-info" ng-if="search_agents.length == 0">
-            No Search Agents found.
-        </p></div>
-</div>
 
 
 

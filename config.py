@@ -33,8 +33,6 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('BONCOIN_PRODUCTION_DATABASE_URL')
 
-    print "Development URI DB : " + SQLALCHEMY_DATABASE_URI
-
 
 class TestingConfig(Config):
     TESTING = True
@@ -46,8 +44,6 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('PRODUCTION_DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-    print SQLALCHEMY_DATABASE_URI
-
 
     @classmethod
     def init_app(cls, app):
@@ -91,7 +87,6 @@ class HerokuConfig(ProductionConfig):
         file_handler = StreamHandler()
         file_handler.setLevel(logging.WARNING)
         app.logger.addHandler(file_handler)
-        
 
 
 config = {
@@ -99,6 +94,5 @@ config = {
     'testing': TestingConfig,
     'production': ProductionConfig,
     'heroku': HerokuConfig,
-
     'default': DevelopmentConfig
 }

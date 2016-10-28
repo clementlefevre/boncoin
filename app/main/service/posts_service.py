@@ -56,4 +56,4 @@ def send_new_post_alert(posts, agent):
                'auth/email/new_post_alert', posts=posts)
 
     manage.app.logger.info(
-        "Email send to :" + agent.email + " for : " + agent.keywords + " : " + len(posts) + "new posts.")
+        "Email send to :" + agent.email + " for : " + agent.keywords + " : " + str(len(posts)) + "new posts.")

@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c7976a8-96dc-4b2f-b048-9c3a6937052c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/BonCoinTest.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/email_boncoin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/main/forms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/main/service/test_post.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/boncoin_parser.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data-dev.sqlite" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models.py" afterPath="$PROJECT_DIR$/app/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/posts_service.py" afterPath="$PROJECT_DIR$/app/main/service/posts_service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/scheduler_service.py" afterPath="$PROJECT_DIR$/app/main/service/scheduler_service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/scraper_service.py" afterPath="$PROJECT_DIR$/app/main/service/scraper_service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/controller/searchAgentsController.js" afterPath="$PROJECT_DIR$/app/static/js/controller/searchAgentsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/partials/search_agents.html" afterPath="$PROJECT_DIR$/app/static/partials/search_agents.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/views.py" afterPath="$PROJECT_DIR$/app/main/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="aecf771f-7fad-4b79-ab70-b8cb413d4d8b" name="New changelist" comment="" />
@@ -32,7 +19,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/boncoin$test_post.coverage" NAME="test_post Coverage Results" MODIFIED="1473435404865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/main/service" />
-    <SUITE FILE_PATH="coverage/boncoin$runserver.coverage" NAME="runserver Coverage Results" MODIFIED="1477639314666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/boncoin$runserver.coverage" NAME="runserver Coverage Results" MODIFIED="1477641628946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/boncoin$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1473104753402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -62,8 +49,8 @@
       <file leaf-file-name="posts_service.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/main/service/posts_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3348485">
-              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.3560606">
+              <caret line="40" column="45" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
               <folding>
                 <element signature="e#17#57#0" expanded="true" />
               </folding>
@@ -683,7 +670,7 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -691,7 +678,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.49786553" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28125" sideWeight="0.48986125" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28125" sideWeight="0.48986125" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.6632871" order="5" side_tool="false" content_ui="tabs" x="1920" y="52" width="1600" height="848" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1154,8 +1141,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/main/service/posts_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3348485">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.3560606">
+          <caret line="40" column="45" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
           <folding>
             <element signature="e#17#57#0" expanded="true" />
           </folding>

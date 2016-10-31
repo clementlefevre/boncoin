@@ -7,7 +7,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.posts_service import retrieve_url, clean_old_post
 from app.models import PeriodManager
-import manage
+from ... import manage
 
 __author__ = 'ramon'
 
@@ -16,11 +16,6 @@ logging.basicConfig()
 scheduler = BackgroundScheduler()
 
 periodManager = PeriodManager(10, 60 * 24)
-
-
-def init_scheduler(scheduler):
-    print "bougna"
-    scheduler.start()
 
 
 def scheduler_status(function):
@@ -33,20 +28,18 @@ def scheduler_status(function):
 
 
 @scheduler_status
-
 def start_scheduler():
-    with manage.app.app_context():
-        if scheduler.state == 0:
-            scheduler.start()
-            manage.app.logger.info('Scheduler job has been started')
-            add_job_scraper()
-            add_job_cleaner()
+    if scheduler.state == 0:
+        scheduler.start()
+        manage.app.logger.info('Scheduler job has been started')
+        add_job_scraper()
+        add_job_cleaner()
 
-            # Shut down the scheduler when exiting the app
-            atexit.register(lambda: scheduler.shutdown())
-        if scheduler.state == 2:
-            scheduler.resume()
-            manage.app.logger.info('Scheduler job has been resumed')
+        # Shut down the scheduler when exiting the app
+        atexit.register(lambda: scheduler.shutdown())
+    if scheduler.state == 2:
+        scheduler.resume()
+        manage.app.logger.info('Scheduler job has been resumed')
 
 
 @scheduler_status
@@ -90,5 +83,4 @@ def get_scheduler_period():
 def get_scheduler_status():
     return scheduler.state
 
-
-start_scheduler()
+# start_scheduler()

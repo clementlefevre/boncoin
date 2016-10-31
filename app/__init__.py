@@ -5,6 +5,7 @@ from flask.ext.moment import Moment
 from flask.ext.login import LoginManager
 from flask.ext.pagedown import PageDown
 
+from app.main.service.scheduler_service import start_scheduler
 from shared import db
 from config import config
 

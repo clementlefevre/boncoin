@@ -2,6 +2,7 @@ import atexit
 import logging
 
 from apscheduler.schedulers.background import BackgroundScheduler
+
 from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.posts_service import retrieve_url, clean_old_post
@@ -11,9 +12,15 @@ import manage
 __author__ = 'ramon'
 
 logging.basicConfig()
+
 scheduler = BackgroundScheduler()
 
-periodManager = PeriodManager(1, 60 * 24)
+periodManager = PeriodManager(10, 60 * 24)
+
+
+def init_scheduler(scheduler):
+    print "bougna"
+    scheduler.start()
 
 
 def scheduler_status(function):
@@ -82,4 +89,5 @@ def get_scheduler_status():
     return scheduler.state
 
 
-start_scheduler()
+with manage.app.app_context():
+    start_scheduler()

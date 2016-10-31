@@ -31,7 +31,7 @@ def scheduler_status(function):
 def start_scheduler():
     if scheduler.state == 0:
         scheduler.start()
-        manage.app.logger.info('Scheduler job has been started')
+        manage.manager.app.logger.info('Scheduler job has been started')
         add_job_scraper()
         add_job_cleaner()
 
@@ -83,4 +83,5 @@ def get_scheduler_period():
 def get_scheduler_status():
     return scheduler.state
 
-# start_scheduler()
+
+start_scheduler()

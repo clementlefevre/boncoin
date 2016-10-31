@@ -15,6 +15,8 @@ logging.basicConfig()
 
 scheduler = BackgroundScheduler()
 
+print "scheduler created"
+
 periodManager = PeriodManager(10, 60 * 24)
 
 
@@ -88,6 +90,6 @@ def get_scheduler_period():
 def get_scheduler_status():
     return scheduler.state
 
-
-with manage.app.app_context():
-    start_scheduler()
+#
+# with manage.app.app_context():
+#     start_scheduler()

@@ -33,18 +33,20 @@ def scheduler_status(function):
 
 
 @scheduler_status
-def start_scheduler():
-    if scheduler.state == 0:
-        scheduler.start()
-        manage.app.logger.info('Scheduler job has been started')
-        add_job_scraper()
-        add_job_cleaner()
 
-        # Shut down the scheduler when exiting the app
-        atexit.register(lambda: scheduler.shutdown())
-    if scheduler.state == 2:
-        scheduler.resume()
-        manage.app.logger.info('Scheduler job has been resumed')
+def start_scheduler():
+    with manage.app.app_context():
+        if scheduler.state == 0:
+            scheduler.start()
+            manage.app.logger.info('Scheduler job has been started')
+            add_job_scraper()
+            add_job_cleaner()
+
+            # Shut down the scheduler when exiting the app
+            atexit.register(lambda: scheduler.shutdown())
+        if scheduler.state == 2:
+            scheduler.resume()
+            manage.app.logger.info('Scheduler job has been resumed')
 
 
 @scheduler_status

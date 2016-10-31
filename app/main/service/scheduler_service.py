@@ -7,7 +7,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.posts_service import retrieve_url, clean_old_post
 from app.models import PeriodManager
-import manage
+from  manage import manager
 
 __author__ = 'ramon'
 
@@ -29,10 +29,10 @@ def scheduler_status(function):
 
 @scheduler_status
 def start_scheduler():
-    with manage.app.app_context():
+    with manager.app.app_context():
         if scheduler.state == 0:
             scheduler.start()
-            manage.app.logger.info('Scheduler job has been started')
+            manager.app.logger.info('Scheduler job has been started')
             add_job_scraper()
             add_job_cleaner()
 
@@ -40,14 +40,14 @@ def start_scheduler():
             atexit.register(lambda: scheduler.shutdown())
         if scheduler.state == 2:
             scheduler.resume()
-            manage.app.logger.info('Scheduler job has been resumed')
+            manager.app.logger.info('Scheduler job has been resumed')
 
 
 @scheduler_status
 def stop_scheduler():
     if scheduler.state == 1:
         scheduler.pause()
-        manage.app.logger.info('Scheduler job have been stopped')
+        manager.app.logger.info('Scheduler job have been stopped')
 
 
 def add_job_scraper():

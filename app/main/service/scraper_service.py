@@ -1,4 +1,3 @@
-
 # coding: utf8
 import urllib2
 import re
@@ -14,12 +13,11 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 
 def retrieve_description(agent):
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
-    print ("url : "+url)
+    print ("url : " + url)
     request = urllib2.urlopen(url)
 
     # Check the encoding of the page before reading it
     charset = request.headers['content-type'].split('charset=')[-1]
-
 
     html = request.read().decode(charset)
 
@@ -28,7 +26,6 @@ def retrieve_description(agent):
     posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
     post_raw += [x.find('a') for x in posts[0].findAll('li')]
     return post_raw
-
 
 
 def convert_to_post(raw_posts):
@@ -90,4 +87,3 @@ def get_title(raw_post):
     if title is not None:
         return title.encode("utf-8")
     return "Not found"
-

@@ -18,9 +18,9 @@ periodManager = PeriodManager(1, 60 * 24)
 
 def scheduler_status(function):
     def wrapper():
-        print "before : " + function.__name__ + str(scheduler.state)
+        print "before : " + function.__name__ + " : " + str(scheduler.state)
         function()
-        print "after : " + function.__name__ + str(scheduler.state)
+        print "after : " + function.__name__ + " : " + str(scheduler.state)
 
     return wrapper
 
@@ -80,3 +80,6 @@ def get_scheduler_period():
 
 def get_scheduler_status():
     return scheduler.state
+
+
+start_scheduler()

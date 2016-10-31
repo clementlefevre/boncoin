@@ -237,11 +237,9 @@ class Post(db.Model):
     post_zip = db.Column('post_zip', db.String, nullable=True)
     post_retrieved_on = db.Column('post_retrieved_on', db.DateTime, nullable=False)
 
-    def __repr__(self):
-        print "self.post_title"
-        print type(self.post_title)
-        title = (self.post_title)
 
+    def __repr__(self):
+        title = (self.post_title)
         return (title)
 
 

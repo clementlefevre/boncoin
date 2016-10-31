@@ -1,6 +1,6 @@
 from flask import render_template, abort, request, \
     current_app, jsonify
-from flask.ext.login import login_required
+from flask.ext.login import login_required, current_user
 from flask.ext.sqlalchemy import get_debug_queries
 
 from . import main
@@ -91,13 +91,10 @@ def get_search_agents():
 
         if not request.json or 'keywords' not in request.json:
             abort(400)
-        new_search_agent = {
-            'email': request.json['email'],
-            'keywords': request.json['keywords'].lower(),
-            'min_price': request.json['min_price'],
-            'is_active': request.json['is_active'],
+        new_search_agent = dict(keywords=request.json['keywords'].lower(), min_price=request.json['min_price'],
+                                is_active=request.json['is_active'])
+        new_search_agent['email'] = current_user.email
 
-        }
         new_search_agent = SearchAgent(**new_search_agent)
         if not exists(new_search_agent):
             create_search_agent(new_search_agent)

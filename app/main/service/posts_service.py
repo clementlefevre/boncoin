@@ -52,8 +52,9 @@ def clean_old_post():
 
 
 def send_new_post_alert(posts, agent):
+    print " sending email to : " + agent.email
     send_email(agent.email, agent.keywords + ': ' + str(len(posts)) + ' new',
                'auth/email/new_post_alert', posts=posts)
 
     manage.app.logger.info(
-        "Email send to :" + agent.email + " for : " + agent.keywords + " : " + str(len(posts)) + "new posts.")
+        "Email send to :" + agent.email + " for : " + agent.keywords + " : " + str(len(posts)) + " new posts.")

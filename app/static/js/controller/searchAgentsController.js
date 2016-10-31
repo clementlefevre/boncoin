@@ -96,6 +96,9 @@ bonCoinApp.controller('searchAgentsController', function ($rootScope, $scope, $h
 
         loadingDatas();
         new_search_agent = $scope.new_search_agent;
+        if (!new_search_agent.min_price) {
+            new_search_agent.min_price = -10;
+        }
 
         $http.post('search_agents/', new_search_agent).success(function (data) {
             closeLoading();

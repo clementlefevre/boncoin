@@ -35,6 +35,7 @@ def start_scheduler():
         add_job_scraper()
         add_job_cleaner()
 
+
         # Shut down the scheduler when exiting the app
         atexit.register(lambda: scheduler.shutdown())
     if scheduler.state == 2:
@@ -46,12 +47,13 @@ def start_scheduler():
 def stop_scheduler():
     if scheduler.state == 1:
         scheduler.pause()
+        print scheduler.get_jobs()
         manage.app.logger.info('Scheduler job have been stopped')
 
 
 def add_job_scraper():
-    log = logging.getLogger('apscheduler.executors.default')
-    log.setLevel(logging.INFO)
+    # log = logging.getLogger('apscheduler.executors.default')
+    # log.setLevel(logging.INFO)
     scheduler.add_job(
         func=retrieve_url,
         trigger=IntervalTrigger(minutes=periodManager.scraper_period),
@@ -61,8 +63,8 @@ def add_job_scraper():
 
 
 def add_job_cleaner():
-    log = logging.getLogger('apscheduler.executors.default')
-    log.setLevel(logging.INFO)
+    # log = logging.getLogger('apscheduler.executors.default')
+    # log.setLevel(logging.INFO)
     scheduler.add_job(
         func=clean_old_post,
         trigger=IntervalTrigger(minutes=periodManager.cleaner_period),
@@ -77,6 +79,7 @@ def set_scheduler_period(period_to_set):
 
 
 def get_scheduler_period():
+    print scheduler.get_job('scraping_job').next_run_time
     return periodManager.scraper_period
 
 

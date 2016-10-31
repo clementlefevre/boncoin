@@ -5,6 +5,11 @@ bonCoinApp.config(function ($routeProvider, $httpProvider, localStorageServicePr
 
     localStorageServiceProvider.setPrefix('bon_coin');
 
+
+    $routeProvider.when('/', {
+        templateUrl: '/static/partials/search_agents.html',
+        controller: 'searchAgentsController'
+    });
     $routeProvider.when('/search_agents', {
         templateUrl: '/static/partials/search_agents.html',
         controller: 'searchAgentsController'

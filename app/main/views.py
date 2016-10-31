@@ -48,29 +48,34 @@ def index():
 
 
 @main.route('/start_scheduler/', methods=['GET'])
+@login_required
 def start_crawler():
     start_scheduler()
     return ('', 204)
 
 
 @main.route('/stop_scheduler/', methods=['GET'])
+@login_required
 def stop_crawler():
     stop_scheduler()
     return ('', 204)
 
 
 @main.route('/scheduler_status/', methods=['GET'])
+@login_required
 def get_crawler_status():
     return jsonify(status=get_scheduler_status())
 
 
 @main.route('/retrieve_url/', methods=['GET'])
+@login_required
 def retrieve_url_manually():
     retrieve_url()
     return ('', 204)
 
 
 @main.route('/scheduler_period/', methods=['GET', 'POST'])
+@login_required
 def set_crawler_period():
     if request.method == 'POST':
 
@@ -86,6 +91,7 @@ def set_crawler_period():
 
 
 @main.route('/search_agents/', methods=['GET', 'POST'])
+@login_required
 def get_search_agents():
     if request.method == 'POST':
 
@@ -103,6 +109,7 @@ def get_search_agents():
 
 
 @main.route('/delete_search_agent/', methods=['POST'])
+@login_required
 def delete_search_agents():
     if request.method == 'POST':
         print request.json
@@ -117,6 +124,7 @@ def delete_search_agents():
 
 
 @main.route('/activate_search_agent/', methods=['POST'])
+@login_required
 def activate_search_agent():
     if request.method == 'POST':
         print request.json

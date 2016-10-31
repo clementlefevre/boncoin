@@ -231,16 +231,22 @@ class Post(db.Model):
     post_description = db.Column('post_description', db.String, nullable=True)
     post_images = db.Column('post_images', db.String, nullable=True)
     post_date = db.Column('post_date', db.String, nullable=True)
-    post_price = db.Column('post_price', db.String, nullable=True)
+    post_price = db.Column('post_price', db.Integer, nullable=True)
     post_author = db.Column('post_author', db.String, nullable=True)
     post_city = db.Column('post_city', db.String, nullable=True)
     post_zip = db.Column('post_zip', db.String, nullable=True)
     post_retrieved_on = db.Column('post_retrieved_on', db.DateTime, nullable=False)
 
-
     def __repr__(self):
         title = (self.post_title)
         return (title)
+
+    @property
+    def price_as_str(self):
+        if self.post_price < 0:
+            return "no price"
+        else:
+            return str(self.post_price) + "€"
 
 
 class SearchAgent(db.Model):
@@ -256,9 +262,16 @@ class SearchAgent(db.Model):
             'id': self.id,
             'email': self.email,
             'keywords': self.keywords,
-            'min_price': self.min_price,
+            'min_price_str': self.min_price_str,
             'is_active': self.is_active,
         }
+
+    @property
+    def min_price_str(self):
+        if self.min_price <= 0:
+            return "no price"
+        else:
+            return str(self.min_price)
 
 
 class PeriodManager():

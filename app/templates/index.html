@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <!--link rel="shortcut icon" href="../../assets/ico/favicon.ico"-->
 
-    <title>Image Matcher</title>
+    <title>Coin Coin</title>
 
 
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
@@ -34,41 +34,41 @@
     <div class="container">
         <div class="navbar-header">
             {% if current_user.is_authenticated %}
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">le bon coing</a>
-            {% endif%}
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">le bon coing</a>
+            {% endif %}
         </div>
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
                 {% if current_user.is_authenticated %}
 
-                <li><a href="#/search_agents">Search Agents</a></li>
+                    <li><a href="#/search_agents">Search Agents</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
-                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                    <div class="btn-group" uib-dropdown is-open="status.isopen">
 
 
-                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle
-                            ng-disabled="disabled">
-                        <img src="{{ current_user.gravatar(size=18) }}"> Account<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle
+                                ng-disabled="disabled">
+                            <img src="{{ current_user.gravatar(size=18) }}"> Account<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 
-                        <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
-                        <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-                    </ul>
-                </div>
+                            <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
+                            <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
+                            <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                        </ul>
+                    </div>
                 {% else %}
-                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                    <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
                 {% endif %}
 
             </ul>

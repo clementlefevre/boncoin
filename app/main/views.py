@@ -112,7 +112,7 @@ def get_search_agents():
 @login_required
 def delete_search_agents():
     if request.method == 'POST':
-        print request.json
+
         if not request.json or 'keywords' not in request.json:
             abort(400)
         search_agent_to_remove = agent_to_dict(request)
@@ -143,10 +143,16 @@ def agent_to_dict(request):
         'id': request.json['id'],
         'email': request.json['email'],
         'keywords': request.json['keywords'],
-        'min_price': request.json['min_price'],
+
         'is_active': request.json['is_active'],
 
     }
+    price_str = request.json['min_price_str']
+    if price_str == 'no price':
+        price = -10
+    else:
+        price = int(price_str)
+    search_agent['min_price'] = price
     return SearchAgent(**search_agent)
 
 

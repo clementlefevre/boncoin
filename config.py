@@ -32,6 +32,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('BONCOIN_PRODUCTION_DATABASE_URL')
+    print SQLALCHEMY_DATABASE_URI
 
 
 class TestingConfig(Config):

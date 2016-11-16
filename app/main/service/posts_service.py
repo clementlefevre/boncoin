@@ -1,6 +1,7 @@
 # coding: utf8
 #
 from datetime import datetime, timedelta
+from multiprocessing.pool import ThreadPool
 
 import manage
 from app import db
@@ -14,16 +15,24 @@ DAYS_IN_PAST = 10
 
 def retrieve_url():
     with manage.app.app_context():
-
         agents = get_search_agent()
+
         active_agents = [x for x in agents if x.is_active]
-        for agent in active_agents:
-            try:
-                posts_raw = retrieve_description(agent)
-                post_objects = convert_to_post(posts_raw)
-                filter_on_new(post_objects, agent)
-            except:
-                manage.app.logger.exception(agent.keywords)
+        p = ThreadPool(5)
+
+        p.map(parse_page, active_agents)
+
+
+def parse_page(agent):
+    print ("start parse for : ", agent.keywords)
+    try:
+        posts_raw = retrieve_description(agent)
+        post_objects = convert_to_post(posts_raw)
+        filter_on_new(post_objects, agent)
+    except Exception as e:
+        print (e.args)
+
+    print ("finished parse for : ", agent.keywords)
 
 
 def filter_on_new(posts, agent):
@@ -35,6 +44,7 @@ def filter_on_new(posts, agent):
             new_posts.append(post)
 
     if len(new_posts) > 0:
+        print "new posts : ", new_posts
         for new_post in new_posts:
             db.session.add(new_post)
             db.session.commit()
@@ -53,8 +63,9 @@ def clean_old_post():
 
 def send_new_post_alert(posts, agent):
     print " sending email to : " + agent.email
-    send_email(agent.email, agent.keywords + ': ' + str(len(posts)) + ' new',
-               'auth/email/new_post_alert', posts=posts)
+    with manage.app.app_context():
+        send_email(agent.email, agent.keywords + ': ' + str(len(posts)) + ' new',
+                   'auth/email/new_post_alert', posts=posts)
 
-    manage.app.logger.info(
-        "Email send to :" + agent.email + " for : " + agent.keywords + " : " + str(len(posts)) + " new posts.")
+        manage.app.logger.info(
+            "Email send to :" + agent.email + " for : " + agent.keywords + " : " + str(len(posts)) + " new posts.")

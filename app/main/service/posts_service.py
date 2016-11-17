@@ -13,14 +13,30 @@ from app.email import send_email
 DAYS_IN_PAST = 10
 
 
+def timing(f):
+    def wrap(*args):
+        time1 = datetime.now()
+        ret = f(*args)
+        time2 = datetime.now()
+        print '%s function took %0.3f seconds' % (f.func_name, (time2 - time1).total_seconds())
+        return ret
+
+    return wrap
+
+
+@timing
 def retrieve_url():
+    print "*******************START PARSING********************"
     with manage.app.app_context():
         agents = get_search_agent()
 
         active_agents = [x for x in agents if x.is_active]
-        p = ThreadPool(5)
+        pool = ThreadPool(5)
+        pool.map(parse_page, active_agents)
 
-        p.map(parse_page, active_agents)
+        pool.close()
+        pool.join()
+    print "*******************FINISHED PARSING********************"
 
 
 def parse_page(agent):
@@ -29,6 +45,7 @@ def parse_page(agent):
         posts_raw = retrieve_description(agent)
         post_objects = convert_to_post(posts_raw)
         filter_on_new(post_objects, agent)
+
     except Exception as e:
         print (e.args)
 

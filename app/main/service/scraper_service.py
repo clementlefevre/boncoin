@@ -40,6 +40,7 @@ def retrieve_description(agent):
     except urllib2.HTTPError as e:
 
         print " HTTPError by parsing : {}".format(agent.keywords.encode('utf-8'))
+        return []
 
     except Exception as e:
         print "{0} : {1} : Error :".format(url, proxy_data['ip'] + ":" + proxy_data['type'] + ":" + proxy_data[

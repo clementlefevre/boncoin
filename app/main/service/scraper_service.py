@@ -15,8 +15,21 @@ def retrieve_description(agent):
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
 
     req = urllib2.Request(url)
-    req.add_header('Referer', 'https://www.google.com/')
-    req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
+    # req.add_header('Referer', 'https://www.google.com/')
+
+
+    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8')
+    req.add_header('Accept-Encoding', 'gzip, deflate, sdch, br')
+    req.add_header('Accept-Language', 'en-US,en;q=0.8,de;q=0.6,fr;q=0.4')
+    req.add_header('Cache-Control', 'max-age=0')
+    req.add_header('Connection', 'keep-alive')
+    req.add_header('Cookie',
+                   'hideCookieFrame=1; xtvrn=$562498$; xtidc=14775619677798192130; layout=0; oas_ab=a; ADventoriAlreadyTargeted_Ooshop=1; sq=ca=12_s&w=3&q=207&it=1; cookieFrame=2; utag_main=v_id:0157ecb8eb0e001fc547d35a03d105069003a061009dc$_sn:20$_ss:1$_st:1479477831978$_pn:1%3Bexp-session$ses_id:1479476031978%3Bexp-session; _pulse2data=abe0c14b-3cf7-4bdc-9e7d-90d138b861d7,v,x,1479476932169,eyJraWQiOiJhODFmNDQ0OSIsImVuYyI6IkExMjhDQkMtSFMyNTYiLCJhbGciOiJkaXIifQ..0YvRjk0DdOUHvOOTPml3tw.A6G91Kv3nEWlCMiFrgRkbIoO7EokhWHC27nq1C4pjemhqv0PFyw8q_o7lZlZOVOOfmND2HVF6YzaYTUhRGWYlAigeHGh8pMYp62qATwW0TQYD1s5Z1x1-u3XS8APk_mdZgLtDChETWT__J4toDFq_PIGVK9HURzYEs_BfcG4R1ZcZ_jDcOCKg5PBmDhXO3YlEl0ujUErcn53v68SoDYu7eZHbQvYEcUQK8NnRn_C6RY.97k-Ews13XhHM7WvWiiwKw,2806035270368495447,1479490432169,true,unresolved,; crtg_rta=; xtan562498=-undefined; xtant562498=1')
+
+    req.add_header('Host', 'www.leboncoin.fr')
+    req.add_header('Upgrade-Insecure-Requests', '1')
+    req.add_header('User-Agent',
+                   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36')
 
     proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
     opener = urllib2.build_opener(proxy)

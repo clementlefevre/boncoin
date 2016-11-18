@@ -14,7 +14,7 @@ from app.email import send_email
 
 DAYS_IN_PAST = 10
 
-POOL_SIZE = 20
+POOL_SIZE = 5
 
 
 def timing(f):

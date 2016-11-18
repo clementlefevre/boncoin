@@ -1,32 +1,37 @@
 # coding: utf8
+import random
 import urllib2
 import re
 from datetime import datetime
-import time
 
 from bs4 import BeautifulSoup
+
 from requests.utils import quote
 
+from app.main.service.proxy_service import PROXIES
 from app.models import Post
 
 BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q='
 
 
 def retrieve_description(agent):
-    time.sleep(10)
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
 
     req = urllib2.Request(url)
     req.add_header('Referer', 'https://www.google.com/')
     req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
 
-    proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
+    proxy_data = random.choice(PROXIES)
+    proxy = urllib2.ProxyHandler({'http': proxy_data['ip']})
+    time1 = datetime.now()
+
     opener = urllib2.build_opener(proxy)
     urllib2.install_opener(opener)
+
     try:
         request = urllib2.urlopen(url)
     except Exception as e:
-        print "{0} : Error {1}".format(url, e.args)
+        print "{0} : {1} : Error :".format(url, proxy_data['ip'])
         return []
 
     response = ""
@@ -38,6 +43,11 @@ def retrieve_description(agent):
         response += data
         # Check the encoding of the page before reading it
         charset = request.headers['content-type'].split('charset=')[-1]
+
+    time2 = datetime.now()
+    print '{0} : took {1:10.4f} seconds'.format(
+        proxy_data['ip'] + ":" + proxy_data['type'] + ":" + proxy_data['level'] + ":" + proxy_data['country'],
+        (time2 - time1).total_seconds())
 
     html = response.decode(charset)
 

@@ -1,7 +1,7 @@
 # coding: utf8
-import traceback
 import urllib2
 import re
+import time
 from datetime import datetime
 
 from bs4 import BeautifulSoup
@@ -21,18 +21,17 @@ def retrieve_description(agent):
 
     time1 = datetime.now()
 
-    try:
-        request = urllib2.urlopen(url)
+    while True:
+        try:
+            request = urllib2.urlopen(url)
+            break
 
-    except urllib2.HTTPError as e:
-        print " HTTPError {0} by parsing : {1}".format(e.code, agent.keywords.encode('utf-8'))
-        return []
-
-    except Exception as e:
-        print "{0} : Error :".format(url)
-        print traceback.print_exc()
-
-        return []
+        except urllib2.HTTPError as e:
+            if e.code == 500:
+                time.sleep(1)
+                continue
+            else:
+                raise
 
     response = ""
     charset = "windows-1252"

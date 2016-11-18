@@ -47,7 +47,7 @@ def start_scheduler():
 def stop_scheduler():
     if scheduler.state == 1:
         scheduler.pause()
-        print scheduler.get_jobs()
+
         manage.app.logger.info('Scheduler job have been stopped')
 
 
@@ -79,7 +79,7 @@ def set_scheduler_period(period_to_set):
 
 
 def get_scheduler_period():
-    print scheduler.get_job('scraping_job').next_run_time
+
     return periodManager.scraper_period
 
 

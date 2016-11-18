@@ -127,7 +127,7 @@ def delete_search_agents():
 @login_required
 def activate_search_agent():
     if request.method == 'POST':
-        print request.json
+
         if not request.json or 'keywords' not in request.json:
             abort(400)
         search_agent = agent_to_dict(request)

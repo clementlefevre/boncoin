@@ -37,13 +37,26 @@ def retrieve_description(agent):
     html = response.decode(charset)
 
     soup = BeautifulSoup(html, "html5lib")
+
     post_raw = []
-    posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
-    post_raw += [x.find('a') for x in posts[0].findAll('li')]
+    if posts_exist(soup):
+        posts = soup.findAll("section", {"class": "tabsContent block-white dontSwitch"})
+        post_raw += [x.find('a') for x in posts[0].findAll('li')]
+
+    else:
+        print "{0} : no post found".format(agent.keywords.encode('utf-8'))
+
     return post_raw
 
 
-def convert_to_post(raw_posts):
+def posts_exist(soup):
+    no_posts_msg = soup.findAll('p', text=re.compile('Aucune annonce trouv'), attrs={'class': 'mbs'})
+    exist = len(no_posts_msg) == 0
+
+    return exist
+
+
+def convert_to_post(raw_posts, agent):
     posts = []
     for raw_post in raw_posts:
         post = {}
@@ -66,6 +79,7 @@ def convert_to_post(raw_posts):
         post = Post(**post)
 
         posts.append(post)
+    print "{0} : posts found : {1}".format(agent.keywords.encode('utf-8'), len(posts))
     return posts
 
 

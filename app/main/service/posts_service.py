@@ -13,18 +13,19 @@ from app.email import send_email
 DAYS_IN_PAST = 10
 
 
-def timing(f):
-    def wrap(*args):
-        time1 = datetime.now()
-        ret = f(*args)
-        time2 = datetime.now()
-        print '%s function took %0.3f seconds' % (f.func_name, (time2 - time1).total_seconds())
-        return ret
+#
+# def timing(f):
+#     def wrap(*args):
+#         time1 = datetime.now()
+#         ret = f(*args)
+#         time2 = datetime.now()
+#         print '%s function took %0.3f seconds' % (f.func_name, (time2 - time1).total_seconds())
+#         return ret
+#
+#     return wrap
 
-    return wrap
 
-
-@timing
+# @timing
 def retrieve_url():
     print "*******************START PARSING********************"
     with manage.app.app_context():
@@ -32,50 +33,59 @@ def retrieve_url():
 
         active_agents = [x for x in agents if x.is_active]
         pool = ThreadPool(5)
+
         pool.map(parse_page, active_agents)
 
         pool.close()
         pool.join()
-    print "*******************FINISHED PARSING********************"
+        print "*******************FINISHED PARSING********************"
 
 
 def parse_page(agent):
-    print ("start parse for : ", agent.keywords)
     try:
+
         posts_raw = retrieve_description(agent)
-        post_objects = convert_to_post(posts_raw)
-        filter_on_new(post_objects, agent)
+
+        if len(posts_raw) > 0:
+            post_objects = convert_to_post(posts_raw, agent)
+            filter_on_new(post_objects, agent)
+
 
     except Exception as e:
         print (e.args)
-
-    print ("finished parse for : ", agent.keywords)
+        print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))
 
 
 def filter_on_new(posts, agent):
-    new_posts = []
-    posts_price_ok = [post for post in posts if (post.post_price >= agent.min_price or post.post_price < 0)]
-    for post in posts_price_ok:
-        q = db.session.query(Post).filter(Post.post_url == post.post_url).all()
-        if len(q) < 1:
-            new_posts.append(post)
+    try:
+        new_posts = []
+        posts_price_ok = [post for post in posts if (post.post_price >= agent.min_price or post.post_price < 0)]
 
-    if len(new_posts) > 0:
-        print "new posts : ", new_posts
-        for new_post in new_posts:
-            db.session.add(new_post)
-            db.session.commit()
-        send_new_post_alert(new_posts, agent)
+        for post in posts_price_ok:
+            q = db.session.query(Post).filter(Post.post_url == post.post_url).all()
+            if len(q) < 1:
+                new_posts.append(post)
+
+        if len(new_posts) > 0:
+            print "{0} : new posts :{1}".format(agent.keywords.encode('utf-8'), len(new_posts))
+            for new_post in new_posts:
+                db.session.add(new_post)
+                db.session.commit()
+            send_new_post_alert(new_posts, agent)
+    except Exception as e:
+
+        print "{0} : Error {1}".format(agent.keywords.encode('utf-8'), e.args)
+        print "{0} : Error {1}".format(agent.keywords.encode('utf-8'), e.message)
 
 
 def clean_old_post():
     last_days = datetime.utcnow() - timedelta(days=DAYS_IN_PAST)
-    manage.app.logger.info("last days  : " + str(last_days))
+    print ("Clean old posts : last days  : " + str(last_days))
     old_posts = db.session.query(Post).filter(Post.post_retrieved_on <= last_days).all()
     for old_post in old_posts:
         db.session.delete(old_post)
         db.session.commit()
-    manage.app.logger.info("Deleted " + str(len(old_posts)) + " old posts.")
+    print ("Clena old post : Deleted " + str(len(old_posts)) + " old posts.")
 
 
 def send_new_post_alert(posts, agent):

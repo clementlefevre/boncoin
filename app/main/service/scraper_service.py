@@ -14,15 +14,18 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 def retrieve_description(agent):
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
 
-    # req = urllib2.Request(url)
-    # req.add_header('Referer', 'https://www.google.com/')
-    # req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
-    #
-    # proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
-    # opener = urllib2.build_opener(proxy)
-    # urllib2.install_opener(opener)
+    req = urllib2.Request(url)
+    req.add_header('Referer', 'https://www.google.com/')
+    req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
 
-    request = urllib2.urlopen(url)
+    proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
+    opener = urllib2.build_opener(proxy)
+    urllib2.install_opener(opener)
+    try:
+        request = urllib2.urlopen(url)
+    except Exception as e:
+        print "{0} : Error {1}".format(url, e.args)
+        return []
 
     response = ""
     charset = "windows-1252"

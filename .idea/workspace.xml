@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c7976a8-96dc-4b2f-b048-9c3a6937052c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/posts_service.py" afterPath="$PROJECT_DIR$/app/main/service/posts_service.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/scraper_service.py" afterPath="$PROJECT_DIR$/app/main/service/scraper_service.py" />
     </list>
     <list id="aecf771f-7fad-4b79-ab70-b8cb413d4d8b" name="New changelist" comment="" />
     <ignored path="boncoin.iws" />
@@ -33,10 +33,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="posts_service.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="posts_service.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/main/service/posts_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41129032">
+            <state vertical-scroll-proportion="0.0">
               <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="e#17#57#0" expanded="true" />
@@ -55,12 +55,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scraper_service.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scraper_service.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/main/service/scraper_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
-              <folding />
+            <state vertical-scroll-proportion="0.43870968">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <element signature="e#15#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -156,8 +158,8 @@
         <option value="$PROJECT_DIR$/app/auth/views.py" />
         <option value="$PROJECT_DIR$/app/main/service/proxy_service.py" />
         <option value="$PROJECT_DIR$/app/models.py" />
-        <option value="$PROJECT_DIR$/app/main/service/scraper_service.py" />
         <option value="$PROJECT_DIR$/app/main/service/posts_service.py" />
+        <option value="$PROJECT_DIR$/app/main/service/scraper_service.py" />
       </list>
     </option>
   </component>
@@ -750,7 +752,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#15#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1089,20 +1093,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/main/service/scraper_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/main/service/posts_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41129032">
+        <state vertical-scroll-proportion="0.0">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#17#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/main/service/scraper_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43870968">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

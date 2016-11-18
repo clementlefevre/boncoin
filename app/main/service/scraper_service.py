@@ -13,12 +13,6 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 
 
 def retrieve_description(agent):
-    time1 = datetime.now()
-    request = urllib2.urlopen("https://www.google.fr")
-    time2 = datetime.now()
-    print 'google took {:10.4f} seconds'.format(
-        (time2 - time1).total_seconds())
-
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
 
     req = urllib2.Request(url)
@@ -31,7 +25,7 @@ def retrieve_description(agent):
         request = urllib2.urlopen(url)
 
     except urllib2.HTTPError as e:
-        print " HTTPError by parsing : {}".format(agent.keywords.encode('utf-8'))
+        print " HTTPError {0} by parsing : {1}".format(e.code, agent.keywords.encode('utf-8'))
         return []
 
     except Exception as e:

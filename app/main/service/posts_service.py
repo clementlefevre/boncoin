@@ -32,7 +32,7 @@ def retrieve_url():
         agents = get_search_agent()
 
         active_agents = [x for x in agents if x.is_active]
-        pool = ThreadPool(10)
+        pool = ThreadPool(2)
 
         pool.map(parse_page, active_agents)
 

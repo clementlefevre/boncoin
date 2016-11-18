@@ -31,7 +31,10 @@ def retrieve_description(agent):
     try:
         request = urllib2.urlopen(url)
     except Exception as e:
-        print "{0} : {1} : Error :".format(url, proxy_data['ip'])
+        print "{0} : {1} : Error :".format(url, proxy_data['ip'] + ":" + proxy_data['type'] + ":" + proxy_data[
+            'level'] + ":" + proxy_data['country'])
+        print e.args
+        print e.message
         return []
 
     response = ""

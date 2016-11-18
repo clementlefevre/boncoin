@@ -18,16 +18,23 @@ def retrieve_description(agent):
     req.add_header('Referer', 'https://www.google.com/')
     req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
 
-    proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
-    opener = urllib2.build_opener(proxy)
-    urllib2.install_opener(opener)
+    # proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
+    # opener = urllib2.build_opener(proxy)
+    # urllib2.install_opener(opener)
 
-    request = urllib2.urlopen(url)
+    request = urllib2.urlopen(req)
 
-    # Check the encoding of the page before reading it
-    charset = request.headers['content-type'].split('charset=')[-1]
+    response = ""
+    charset = "windows-1252"
+    while 1:
+        data = request.read()
+        if not data:  # This might need to be    if data == "":   -- can't remember
+            break
+        response += data
+        # Check the encoding of the page before reading it
+        charset = request.headers['content-type'].split('charset=')[-1]
 
-    html = request.read().decode(charset)
+    html = response.decode(charset)
 
     soup = BeautifulSoup(html, "html5lib")
     post_raw = []

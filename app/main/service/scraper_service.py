@@ -1,7 +1,8 @@
 # coding: utf8
 import urllib2
 import re
-from datetime import datetime, time
+from datetime import datetime
+import time
 
 from bs4 import BeautifulSoup
 from requests.utils import quote

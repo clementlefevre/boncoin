@@ -38,10 +38,7 @@ def retrieve_description(agent):
         request = urllib2.urlopen(url)
 
     except urllib2.HTTPError as e:
-
         print " HTTPError by parsing : {}".format(agent.keywords.encode('utf-8'))
-        print "{0} : Error :".format(proxy_data['ip'] + ":" + proxy_data['type'] + ":" + proxy_data[
-            'level'] + ":" + proxy_data['country'])
         return []
 
     except Exception as e:

@@ -52,7 +52,7 @@ def retrieve_description(agent):
     charset = "windows-1252"
     while 1:
         data = request.read()
-        if not data:  # This might need to be    if data == "":   -- can't remember
+        if not data:
             break
         response += data
         # Check the encoding of the page before reading it

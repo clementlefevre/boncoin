@@ -33,7 +33,7 @@ def retrieve_url():
         agents = get_search_agent()
 
         active_agents = [x for x in agents if x.is_active]
-        active_agents = random.shuffle(active_agents)
+        random.shuffle(active_agents)
 
         chunked = chunks(active_agents, 2)
 

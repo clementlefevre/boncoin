@@ -2,6 +2,7 @@
 #
 from datetime import datetime, timedelta
 from multiprocessing.pool import ThreadPool
+import time
 
 import manage
 from app import db
@@ -31,13 +32,25 @@ def retrieve_url():
         agents = get_search_agent()
 
         active_agents = [x for x in agents if x.is_active]
-        pool = ThreadPool(30)
 
-        pool.map(parse_page, active_agents)
+        chunked = chunks(active_agents, 4)
 
-        pool.close()
-        pool.join()
+        for chunk in chunked:
+            print chunk
+            pool = ThreadPool(4)
+
+            pool.map(parse_page, chunk)
+
+            pool.close()
+            pool.join()
+            time.sleep(10)
         print "*******************FINISHED PARSING********************"
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in xrange(0, len(l), n):
+        yield l[i:i + n]
 
 
 def parse_page(agent):

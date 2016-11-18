@@ -266,6 +266,9 @@ class SearchAgent(db.Model):
             'is_active': self.is_active,
         }
 
+    def __repr__(self):
+        return self.keywords.encode('utf-8')
+
     @property
     def min_price_str(self):
         if self.min_price <= 0:

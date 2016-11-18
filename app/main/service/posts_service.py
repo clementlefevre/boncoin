@@ -35,11 +35,11 @@ def retrieve_url():
         active_agents = [x for x in agents if x.is_active]
         random.shuffle(active_agents)
 
-        chunked = chunks(active_agents, 1)
+        chunked = chunks(active_agents, 5)
 
         for chunk in chunked:
             print chunk
-            pool = ThreadPool(1)
+            pool = ThreadPool(5)
 
             pool.map(parse_page, chunk)
 

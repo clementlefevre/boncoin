@@ -14,7 +14,7 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 
 def retrieve_description(agent):
     time1 = datetime.now()
-    request = urllib2.urlopen("www.google.fr")
+    request = urllib2.urlopen("https://www.google.fr")
     time2 = datetime.now()
     print 'google took {:10.4f} seconds'.format(
         (time2 - time1).total_seconds())

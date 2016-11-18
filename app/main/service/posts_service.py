@@ -14,6 +14,8 @@ from app.email import send_email
 
 DAYS_IN_PAST = 10
 
+POOL_SIZE = 20
+
 
 def timing(f):
     def wrap(*args):
@@ -35,11 +37,11 @@ def retrieve_url():
         active_agents = [x for x in agents if x.is_active]
         random.shuffle(active_agents)
 
-        chunked = chunks(active_agents, 5)
+        chunked = chunks(active_agents, POOL_SIZE)
 
         for chunk in chunked:
             print chunk
-            pool = ThreadPool(5)
+            pool = ThreadPool(POOL_SIZE)
 
             pool.map(parse_page, chunk)
 

@@ -6,6 +6,7 @@ import re
 from datetime import datetime
 
 from bs4 import BeautifulSoup
+
 from requests.utils import quote
 
 from app.main.service.proxy_service import PROXIES
@@ -35,6 +36,11 @@ def retrieve_description(agent):
 
     try:
         request = urllib2.urlopen(url)
+
+    except urllib2.HTTPError as e:
+
+        print " HTTPError by parsing : {}".format(agent.keywords.encode('utf-8'))
+
     except Exception as e:
         print "{0} : {1} : Error :".format(url, proxy_data['ip'] + ":" + proxy_data['type'] + ":" + proxy_data[
             'level'] + ":" + proxy_data['country'])

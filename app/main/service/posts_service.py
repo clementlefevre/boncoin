@@ -2,7 +2,6 @@
 #
 from datetime import datetime, timedelta
 from multiprocessing.pool import ThreadPool
-from urllib2 import HTTPError
 
 import manage
 from app import db
@@ -51,9 +50,7 @@ def parse_page(agent):
             filter_on_new(post_objects, agent)
 
 
-    except HTTPError as e:
-        print (e.args)
-        print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))
+
     except Exception as e:
         print (e.args)
         print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))

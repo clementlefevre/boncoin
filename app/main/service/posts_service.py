@@ -2,6 +2,7 @@
 #
 from datetime import datetime, timedelta
 from multiprocessing.pool import ThreadPool
+import random
 import time
 
 import manage
@@ -32,8 +33,9 @@ def retrieve_url():
         agents = get_search_agent()
 
         active_agents = [x for x in agents if x.is_active]
+        active_agents = random.shuffle(active_agents)
 
-        chunked = chunks(active_agents, 4)
+        chunked = chunks(active_agents, 2)
 
         for chunk in chunked:
             print chunk

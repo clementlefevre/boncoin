@@ -18,9 +18,9 @@ def retrieve_description(agent):
     req.add_header('Referer', 'https://www.google.com/')
     req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
 
-    # proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
-    # opener = urllib2.build_opener(proxy)
-    # urllib2.install_opener(opener)
+    proxy = urllib2.ProxyHandler({'http': '91.121.42.68:80'})
+    opener = urllib2.build_opener(proxy)
+    urllib2.install_opener(opener)
 
     request = urllib2.urlopen(req)
 

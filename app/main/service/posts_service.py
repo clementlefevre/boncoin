@@ -2,6 +2,7 @@
 #
 from datetime import datetime, timedelta
 from multiprocessing.pool import ThreadPool
+import traceback
 
 import manage
 from app import db
@@ -42,18 +43,19 @@ def retrieve_url():
 
 
 def parse_page(agent):
-    # try:
+    try:
 
-    posts_raw = retrieve_description(agent)
+        posts_raw = retrieve_description(agent)
 
-    if len(posts_raw) > 0:
-        post_objects = convert_to_post(posts_raw, agent)
-        filter_on_new(post_objects, agent)
+        if len(posts_raw) > 0:
+            post_objects = convert_to_post(posts_raw, agent)
+            filter_on_new(post_objects, agent)
 
 
-        # except Exception as e:
-        #     print (e.args)
-        #     print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))
+    except Exception as e:
+        print (e)
+        print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))
+        traceback.print_exc()
 
 
 def filter_on_new(posts, agent):

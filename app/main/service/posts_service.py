@@ -2,7 +2,7 @@
 #
 from datetime import datetime, timedelta
 from multiprocessing.pool import ThreadPool
-import traceback
+from urllib2 import HTTPError
 
 import manage
 from app import db
@@ -32,7 +32,7 @@ def retrieve_url():
         agents = get_search_agent()
 
         active_agents = [x for x in agents if x.is_active]
-        pool = ThreadPool(2)
+        pool = ThreadPool(30)
 
         pool.map(parse_page, active_agents)
 
@@ -51,10 +51,12 @@ def parse_page(agent):
             filter_on_new(post_objects, agent)
 
 
-    except Exception as e:
-        print (e)
+    except HTTPError as e:
+        print (e.args)
         print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))
-        traceback.print_exc()
+    except Exception as e:
+        print (e.args)
+        print "Error by parsing : {}".format(agent.keywords.encode('utf-8'))
 
 
 def filter_on_new(posts, agent):

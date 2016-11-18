@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c7976a8-96dc-4b2f-b048-9c3a6937052c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/posts_service.py" afterPath="$PROJECT_DIR$/app/main/service/posts_service.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main/service/scraper_service.py" afterPath="$PROJECT_DIR$/app/main/service/scraper_service.py" />
     </list>
     <list id="aecf771f-7fad-4b79-ab70-b8cb413d4d8b" name="New changelist" comment="" />
@@ -49,8 +48,8 @@
       <file leaf-file-name="scraper_service.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/main/service/scraper_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42814815">
-              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="22" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.78074074">
+              <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
               <folding>
                 <element signature="e#15#29#0" expanded="true" />
               </folding>
@@ -1055,8 +1054,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/main/service/scraper_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42814815">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="22" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.78074074">
+          <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
           <folding>
             <element signature="e#15#29#0" expanded="true" />
           </folding>

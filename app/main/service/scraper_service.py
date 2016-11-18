@@ -1,11 +1,11 @@
 # coding: utf8
 import random
+import traceback
 import urllib2
 import re
 from datetime import datetime
 
 from bs4 import BeautifulSoup
-
 from requests.utils import quote
 
 from app.main.service.proxy_service import PROXIES
@@ -21,20 +21,25 @@ def retrieve_description(agent):
     req.add_header('Referer', 'https://www.google.com/')
     req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
 
-    proxy_data = random.choice(PROXIES)
-    proxy = urllib2.ProxyHandler({'http': proxy_data['ip']})
-    time1 = datetime.now()
+    if bool(random.getrandbits(1)):
+        proxy_data = random.choice(PROXIES)
+        proxy = urllib2.ProxyHandler({'http': proxy_data['ip']})
+        opener = urllib2.build_opener(proxy)
+        urllib2.install_opener(opener)
 
-    opener = urllib2.build_opener(proxy)
-    urllib2.install_opener(opener)
+    else:
+        proxy_data = {'ip': 'no proxy', 'type': 'no proxy', 'country': 'no proxy', 'port': 'no proxy',
+                      'level': 'no proxy', }
+
+    time1 = datetime.now()
 
     try:
         request = urllib2.urlopen(url)
     except Exception as e:
         print "{0} : {1} : Error :".format(url, proxy_data['ip'] + ":" + proxy_data['type'] + ":" + proxy_data[
             'level'] + ":" + proxy_data['country'])
-        print e.args
-        print e.message
+        print traceback.print_exc()
+
         return []
 
     response = ""

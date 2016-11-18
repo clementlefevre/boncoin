@@ -13,7 +13,7 @@ BASE_URL = 'https://www.leboncoin.fr/annonces/offres/ile_de_france/occasions/?q=
 
 
 def retrieve_description(agent):
-    time.sleep(20)
+    time.sleep(10)
     url = BASE_URL + quote(agent.keywords.encode("utf-8")) + "&it=1"
 
     req = urllib2.Request(url)

@@ -22,7 +22,7 @@ def retrieve_description(agent):
     req.add_header('Referer', 'https://www.google.com/')
     req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
 
-    if bool(random.getrandbits(1)):
+    if False:
         proxy_data = random.choice(PROXIES)
         proxy = urllib2.ProxyHandler({'http': proxy_data['ip']})
         opener = urllib2.build_opener(proxy)

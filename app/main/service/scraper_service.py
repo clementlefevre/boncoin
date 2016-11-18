@@ -18,12 +18,13 @@ def retrieve_description(agent):
     req = urllib2.Request(url)
 
     req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
+    req.add_header('Referer', 'https://www.leboncoin.fr/')
 
     time1 = datetime.now()
 
     while True:
         try:
-            request = urllib2.urlopen(url)
+            request = urllib2.urlopen(req)
             break
 
         except urllib2.HTTPError as e:

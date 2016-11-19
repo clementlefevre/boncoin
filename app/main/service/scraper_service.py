@@ -17,8 +17,10 @@ def retrieve_description(agent):
 
     req = urllib2.Request(url)
 
-    req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
-    req.add_header('Referer', 'https://www.leboncoin.fr/')
+    req.add_header('User-Agent',
+                   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36')
+    req.add_header('Referer', 'https://www.leboncoin.fr/annonces/offres/ile_de_france/?th=1&q=' + quote(
+        agent.keywords.encode("utf-8")) + '&parrot=0')
 
     time1 = datetime.now()
 

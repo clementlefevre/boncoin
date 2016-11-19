@@ -2,7 +2,6 @@ import atexit
 import logging
 
 from apscheduler.schedulers.background import BackgroundScheduler
-
 from apscheduler.triggers.interval import IntervalTrigger
 
 from app.main.service.posts_service import retrieve_url, clean_old_post
@@ -15,7 +14,7 @@ logging.basicConfig()
 
 scheduler = BackgroundScheduler()
 
-periodManager = PeriodManager(10, 60 * 24)
+periodManager = PeriodManager(30, 60 * 24)
 
 
 def scheduler_status(function):
@@ -79,7 +78,6 @@ def set_scheduler_period(period_to_set):
 
 
 def get_scheduler_period():
-
     return periodManager.scraper_period
 
 
